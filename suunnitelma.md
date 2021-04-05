@@ -2,7 +2,7 @@
 Tavoitteena on luoda sovellus, joka seuraa käyttäjän liikkumista. Liikkuminen erotellaan, sen mukaan, onko käyttäjä kävellyt, käyttänyt ajoneuvoa, kulkenut julkisilla jne. Näillä tiedoilla lasketaan käyttäjän hiilijalanjälkeä. Käyttäjä voi seurata myös halutessaan painonsa muuttumista.
 
 ## Kirjautuminen
-Solvellus aukeaa LoginFragmentissä. Fragmentissa voi kirjautua sisään tai siirtyä luomaan tiliä RegisterFragmentissä. Tiliä luodessa käyttäjältä kysytään perustietoja, kuten ikä, paino ja pituus. Sovellus varmistaa, että käyttäjän salasana on tarpeeksi vahva.
+Solvellus aukeaa LoginFragmentissä. Fragmentissa voi kirjautua sisään tai siirtyä luomaan tiliä RegisterFragmentissä. Sovellus varmistaa, että käyttäjän salasana on tarpeeksi vahva.
 Tilejä on useita ja niistä pidetään listaa paikallisessa tietokannassa Roomin avulla. Tietokannassa on käyttäjien nimet ja salasanat (SHA-512 + salt). Jos kirjautuminen onnistuu tai luodaan uusi tili, sovellus luo Profiili-instanssin ja siirtyy MainActivityn HomeFragmenttiin.
 
 ## Profiili
@@ -29,3 +29,18 @@ Profiili on singleton-luokka, joka sisältää kaikki sisäänkirjautuneen henki
     }
 }
 ```
+
+## MainActivity
+MainActivity sisältää viisi fragmenttiä. Fragmenttien välillä voidaan siirtyä sivunavigaation avulla. Kun MainActivity avataan ensimmäisen kerran, se luo Profiili-olion, joka on kirjautuessa luotu instanssi. Jos käyttäjä kirjautuu ulos, profiili-instanssi tyhjennetään ja siirtytään LoginActivityn LoginFragmenttiin. 
+
+## HomeFragment
+Etusivu sisältää tiedon hiilijalanjälkiarviosta kuluneelta viikolta, vertailun edelliseen viikkoon ja MessageBotin avulla luodun palautteen. Etusivulla on myös painike, jonka avulla pääsee lisäämään dataa AddTravelFragmenttiin.
+
+## AddTravelFragment
+Käyttäjä lisää sovellukseen dataa teksikenttien ja painikkeiden avulla. AddTravelFragmentissä voi valita matkustustavan, päivän (kalenterilla) ja kilometrimäärän. Käyttäjä voi halutessaan päivittää tässä omaa painoaan. Päivitetyt tiedot tallennetaan profiiliin, joka tallentaa ne jsoniin.
+
+## XMLParser
+XMLParser on singleton-luokka, jonka tarkoitus on ladata tietoa valitusta rajapinnasta. Lataaminen tapahtuu vain AddTravelFragmentin datan lisäyksen jälkeen.
+https://ilmastodieetti.ymparisto.fi/ilmastodieetti/calculatorapi/v1/TransportCalculator/CarEstimate
+https://ilmastodieetti.ymparisto.fi/ilmastodieetti/calculatorapi/v1/TransportCalculator/PublicTransportEstimate
+Tiedon lataaminen tapahtuu asynkronoidusti, joten getCO2Estimatessa siirrytään toiseen threadiin. Kun arvio on laskettu, arvio tallennetaan profiiliin, joka tallentaa ne jsoniin. Tämän jälkeen kutsutaan MainActivityn refresh() Handlerin ja Contextin avulla. refresh() päivittää HomeFragmentin ja ChartsFragmentin tiedot.
