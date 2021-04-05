@@ -58,12 +58,12 @@ Asetukset sisältää sovelluksen ulkoasuun ja käyttämiseen liittyviä asetuks
 Tilin asetuksissa käyttäjä voi muuttaa omia perustietojaan, kuten ikää, pituutta, painoa ja paikkakuntaa.
 
 ## ChartsFragment
-Sovelluksessa on oma sivu kuvaajille, joista näkyy käyttäjän tietoja
+Sovelluksessa on oma sivu kuvaajille, joista näkyy käyttäjän tietoja ajan suhteen. Tietojen aikaväliä voi muuttaa esimerkiksi spinnerin avulla. Kuvaajan alla on tekstinä lisätietoa aikavälin tiedoista.
 
 ## Kuvat
 ![UML](/uml-v2.png?raw=true)
 
-UML:ssä ei ole mainittu kaikkia attribuutteja/metodeja yksityiskohtaisesti.
+UML:ssä ei ole mainittu kaikkia attribuutteja/metodeja yksityiskohtaisesti, muuttuvat projektin edetessä.
 
 ![Ulkoasu](/gui.png?raw=true)
 
