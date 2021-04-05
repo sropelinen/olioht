@@ -36,6 +36,9 @@ MainActivity sisältää viisi fragmenttiä. Fragmenttien välillä voidaan siir
 ## HomeFragment
 Etusivu sisältää tiedon hiilijalanjälkiarviosta kuluneelta viikolta, vertailun edelliseen viikkoon ja MessageBotin avulla luodun palautteen. Etusivulla on myös painike, jonka avulla pääsee lisäämään dataa AddTravelFragmenttiin.
 
+## MessageBot
+Sovellus luo tekstipätkiä käyttäjän syötteiden mukaan. Tekstipätkät näkyvät etusivulla. Teksti voi esimerkiksi kannustaa käyttäjää liikkumaan, jos sovellukselle on ilmoitettu paljon autoilua ja vähän kävelyä. MessageBot hyödyntää dataa (THL, Traficom), jonka avulla se voi verrata käyttäjän liikkumistottumuksia keskimääräiseen ihmiseen samassa ikäryhmässä tai samalla asuinalueella.
+
 ## AddTravelFragment
 Käyttäjä lisää sovellukseen dataa teksikenttien ja painikkeiden avulla. AddTravelFragmentissä voi valita matkustustavan, päivän (kalenterilla) ja kilometrimäärän. Käyttäjä voi halutessaan päivittää tässä omaa painoaan. Päivitetyt tiedot tallennetaan profiiliin, joka tallentaa ne jsoniin.
 
@@ -43,7 +46,6 @@ Käyttäjä lisää sovellukseen dataa teksikenttien ja painikkeiden avulla. Add
 XMLParser on singleton-luokka, jonka tarkoitus on ladata tietoa valitusta rajapinnasta. Lataaminen tapahtuu vain AddTravelFragmentin datan lisäyksen jälkeen.
 
 https://ilmastodieetti.ymparisto.fi/ilmastodieetti/calculatorapi/v1/TransportCalculator/CarEstimate
-
 https://ilmastodieetti.ymparisto.fi/ilmastodieetti/calculatorapi/v1/TransportCalculator/PublicTransportEstimate
 
 Tiedon lataaminen tapahtuu asynkronoidusti, joten getCO2Estimatessa siirrytään toiseen threadiin. Kun arvio on laskettu, arvio tallennetaan profiiliin, joka tallentaa ne jsoniin. Tämän jälkeen kutsutaan MainActivityn refresh() Handlerin ja Contextin avulla. refresh() päivittää HomeFragmentin ja ChartsFragmentin tiedot.
