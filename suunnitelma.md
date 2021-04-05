@@ -62,6 +62,9 @@ Sovelluksessa on oma sivu kuvaajille, joista näkyy käyttäjän tietoja
 
 ## Kuvat
 ![UML](/uml-v2.png?raw=true)
+
 UML:ssä ei ole mainittu kaikkia attribuutteja/metodeja yksityiskohtaisesti, muuttuvat projektin edetessä.
+
 ![Ulkoasu](/gui.png?raw=true)
+
 Ensimmäiset versiot, saattavat muuttua projektin edetessä.
