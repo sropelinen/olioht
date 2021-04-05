@@ -61,4 +61,5 @@ Tilin asetuksissa käyttäjä voi muuttaa omia perustietojaan, kuten ikää, pit
 Sovelluksessa on oma sivu kuvaajille, joista näkyy käyttäjän tietoja
 
 ## Kuvat
+![UML](/uml-v2.png?raw=true)
 ![Ulkoasu](/gui.png?raw=true)
