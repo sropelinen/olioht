@@ -3,7 +3,7 @@ Tavoitteena on luoda sovellus, joka seuraa käyttäjän liikkumista. Liikkuminen
 
 ## Kirjautuminen
 Solvellus aukeaa LoginFragmentissä. Fragmentissa voi kirjautua sisään tai siirtyä luomaan tiliä RegisterFragmentissä. Sovellus varmistaa, että käyttäjän salasana on tarpeeksi vahva.
-Tilejä on useita ja niistä pidetään listaa paikallisessa tietokannassa Roomin avulla. Tietokannassa on käyttäjien nimet ja salasanat (SHA-512 + salt). Jos kirjautuminen onnistuu tai luodaan uusi tili, sovellus luo Profiili-instanssin ja siirtyy MainActivityn HomeFragmenttiin.
+Tilejä on useita ja niistä pidetään listaa paikallisessa tietokannassa Roomin avulla. Tietokannassa on käyttäjien nimet ja salasanat (SHA-512 + salt). Jos kirjautuminen onnistuu tai luodaan uusi tili, sovellus luo profiili-instanssin ja siirtyy MainActivityn HomeFragmenttiin.
 
 ## Profiili
 Profiili on singleton-luokka, joka sisältää kaikki sisäänkirjautuneen henkilön tiedot. Tiedot luetaan salatusta json-tiedostosta, joka on tallennettu siten, että vain sovellus voi lukea ja kirjoittaa siihen. Profiili lataa tiedot DataHandler-luokan avulla. Jokaiselle käyttäjälle on oma json-tiedosto, joka toimii samalla myös logitiedostona. Tiedostossa on eroteltu jokaisena ajanhetkenä muutettu data.
@@ -46,6 +46,16 @@ Käyttäjä lisää sovellukseen dataa teksikenttien ja painikkeiden avulla. Add
 XMLParser on singleton-luokka, jonka tarkoitus on ladata tietoa valitusta rajapinnasta. Lataaminen tapahtuu vain AddTravelFragmentin datan lisäyksen jälkeen.
 
 https://ilmastodieetti.ymparisto.fi/ilmastodieetti/calculatorapi/v1/TransportCalculator/CarEstimate
+
 https://ilmastodieetti.ymparisto.fi/ilmastodieetti/calculatorapi/v1/TransportCalculator/PublicTransportEstimate
 
 Tiedon lataaminen tapahtuu asynkronoidusti, joten getCO2Estimatessa siirrytään toiseen threadiin. Kun arvio on laskettu, arvio tallennetaan profiiliin, joka tallentaa ne jsoniin. Tämän jälkeen kutsutaan MainActivityn refresh() Handlerin ja Contextin avulla. refresh() päivittää HomeFragmentin ja ChartsFragmentin tiedot.
+
+## SettingsFragment
+Asetukset sisältää sovelluksen ulkoasuun ja käyttämiseen liittyviä asetuksia. Asetukset tallennetaan TODO avulla.
+
+## AccountFragment
+Tilin asetuksissa käyttäjä voi muuttaa omia perustietojaan, kuten ikää, pituutta, painoa ja paikkakuntaa.
+
+## ChartsFragment
+Sovelluksessa on oma sivu kuvaajille, joista näkyy käyttäjän tietoja
