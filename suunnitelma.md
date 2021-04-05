@@ -52,7 +52,7 @@ https://ilmastodieetti.ymparisto.fi/ilmastodieetti/calculatorapi/v1/TransportCal
 Tiedon lataaminen tapahtuu asynkronoidusti, joten getCO2Estimatessa siirrytään toiseen threadiin. Kun arvio on laskettu, arvio tallennetaan profiiliin, joka tallentaa ne jsoniin. Tämän jälkeen kutsutaan MainActivityn refresh() Handlerin ja Contextin avulla. refresh() päivittää HomeFragmentin ja ChartsFragmentin tiedot.
 
 ## SettingsFragment
-Asetukset sisältää sovelluksen ulkoasuun ja käyttämiseen liittyviä asetuksia. Asetukset tallennetaan TODO avulla.
+Asetukset sisältää sovelluksen ulkoasuun ja käyttämiseen liittyviä asetuksia. Asetukset tallennetaan ViewModelin avulla, jotta kaikki MainActivityn fragmentit näkevät ne.
 
 ## AccountFragment
 Tilin asetuksissa käyttäjä voi muuttaa omia perustietojaan, kuten ikää, pituutta, painoa ja paikkakuntaa.
