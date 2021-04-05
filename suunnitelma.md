@@ -31,7 +31,7 @@ Profiili on singleton-luokka, joka sisältää kaikki sisäänkirjautuneen henki
 ```
 
 ## MainActivity
-MainActivity sisältää viisi fragmenttiä. Fragmenttien välillä voidaan siirtyä sivunavigaation avulla. Kun MainActivity avataan ensimmäisen kerran, se luo Profiili-olion, joka on kirjautuessa luotu instanssi. Jos käyttäjä kirjautuu ulos, profiili-instanssi tyhjennetään ja siirtytään LoginActivityn LoginFragmenttiin. 
+MainActivity sisältää viisi fragmenttiä. Fragmenttien välillä voidaan siirtyä sivunavigaation avulla. Jos käyttäjä kirjautuu ulos, profiili-instanssi tyhjennetään ja siirtytään LoginActivityn LoginFragmenttiin. Fragmentit voivat käyttää profiilia getInstancen avulla.
 
 ## HomeFragment
 Etusivu sisältää tiedon hiilijalanjälkiarviosta kuluneelta viikolta, vertailun edelliseen viikkoon ja MessageBotin avulla luodun palautteen. Etusivulla on myös painike, jonka avulla pääsee lisäämään dataa AddTravelFragmenttiin.
