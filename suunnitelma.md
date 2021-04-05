@@ -41,6 +41,9 @@ Käyttäjä lisää sovellukseen dataa teksikenttien ja painikkeiden avulla. Add
 
 ## XMLParser
 XMLParser on singleton-luokka, jonka tarkoitus on ladata tietoa valitusta rajapinnasta. Lataaminen tapahtuu vain AddTravelFragmentin datan lisäyksen jälkeen.
+
 https://ilmastodieetti.ymparisto.fi/ilmastodieetti/calculatorapi/v1/TransportCalculator/CarEstimate
+
 https://ilmastodieetti.ymparisto.fi/ilmastodieetti/calculatorapi/v1/TransportCalculator/PublicTransportEstimate
+
 Tiedon lataaminen tapahtuu asynkronoidusti, joten getCO2Estimatessa siirrytään toiseen threadiin. Kun arvio on laskettu, arvio tallennetaan profiiliin, joka tallentaa ne jsoniin. Tämän jälkeen kutsutaan MainActivityn refresh() Handlerin ja Contextin avulla. refresh() päivittää HomeFragmentin ja ChartsFragmentin tiedot.
