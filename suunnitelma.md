@@ -1,8 +1,8 @@
 # Suunnitelma
-Tavoitteena on luoda sovellus, joka seuraa käyttäjän liikkumista. Liikkuminen erotellaan, sen mukaan, onko käyttäjä kävellyt, käyttänyt ajoneuvoa, kulkenut julkisilla jne. Näillä tiedoilla lasketaan käyttäjän hiilijalanjälkeä. Käyttäjä voi seurata myös halutessaan painonsa muuttumista.
+Tavoitteena on luoda sovellus, joka auttaa käyttäjää pienentämään hiilijalanjälkeään. Käyttäjä pystyy kirjaamaan liikkumisensa sovellukseen. Liikkuminen erotellaan sen mukaan, onko käyttäjä kävellyt, käyttänyt ajoneuvoa, kulkenut julkisilla jne. Näillä tiedoilla lasketaan käyttäjän hiilijalanjälki käyttäen ilmastodieetin APIa (linkki alempana). Sovellus myös vertaa käyttäjän hiilijalanjälkeä aikaisempaan ja kertoo vinkkejä, kuinka sitä voisi pienentää. Käyttäjä voi seurata myös halutessaan painonsa muuttumista. Käyttäjä pystyy tarkastelemaan liikkumistaan ja painoaan tekstinä sekä erilaisina graafeina.
 
 ## Kirjautuminen
-Solvellus aukeaa LoginFragmentissä. Fragmentissa voi kirjautua sisään tai siirtyä luomaan tiliä RegisterFragmentissä. Sovellus varmistaa, että käyttäjän salasana on tarpeeksi vahva.
+Sovellus aukeaa LoginFragmentissä. Fragmentissa voi kirjautua sisään tai siirtyä luomaan tiliä RegisterFragmentissä. Sovellus varmistaa, että käyttäjän salasana on tarpeeksi vahva.
 Tilejä on useita ja niistä pidetään listaa paikallisessa tietokannassa Roomin avulla. Tietokannassa on käyttäjien nimet ja salasanat (SHA-512 + salt). Jos kirjautuminen onnistuu tai luodaan uusi tili, sovellus luo profiili-instanssin ja siirtyy MainActivityn HomeFragmenttiin.
 
 ## Profiili
