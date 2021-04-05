@@ -60,4 +60,5 @@ Tilin asetuksissa käyttäjä voi muuttaa omia perustietojaan, kuten ikää, pit
 ## ChartsFragment
 Sovelluksessa on oma sivu kuvaajille, joista näkyy käyttäjän tietoja
 
+## Kuvat
 ![Ulkoasu](/gui.png?raw=true)
