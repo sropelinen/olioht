@@ -55,17 +55,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
     private void setFragment() {
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.menu_home) {
                 fragment = homeFragment;
             } else if (id == R.id.menu_settings) {
-                // veikka
+                // TODO add different fragments
             } else if (id == R.id.menu_charts) {
-                // veikka
+
             }
             FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
