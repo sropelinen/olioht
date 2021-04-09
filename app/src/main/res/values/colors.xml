@@ -7,6 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#050505</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#F00000</color>
     <color name="russian_green_walk">#6e975e</color>
     <color name="olive_green_bike">#b2a64d</color>
     <color name="maximum_yellow_train">#f6b53c</color>
