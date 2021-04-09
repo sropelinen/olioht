@@ -5,6 +5,19 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+    <color name="black">#050505</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="russian_green_walk">#6e975e</color>
+    <color name="olive_green_bike">#b2a64d</color>
+    <color name="maximum_yellow_train">#f6b53c</color>
+    <color name="raw_sienna_bus">#db8241</color>
+    <color name="deep_chestnut_car">#c04f46</color>
+    <color name="light_green_1">#DEE7DA</color>
+    <color name="light_green_2">#CAD4C4</color>
+    <color name="dark_green_1">#93B668</color>
+    <color name="dark_green_2">#325B20</color>
+
+
+
+
 </resources>

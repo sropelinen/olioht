@@ -36,12 +36,13 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout_main);
         navigationView = findViewById(R.id.navigationView);
 
-        //set home on launch
+        //set home fragment on launch
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frame_main, homeFragment);
         transaction.commit();
 
+        // set action bar
         actionBar = getSupportActionBar();
         if (actionBar != null) {
             toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
