@@ -14,21 +14,21 @@ public class Profile {
     private final List<String> infoKeys = Arrays.asList("firstName", "lastName", "home", "age", "height");
     private final List<String> chartKeys = Arrays.asList("weight", "car", "train", "bus", "walk", "bike");
 
-    private static Profile INSTANCE = null;
+    private static final Profile INSTANCE = new Profile();
 
     private JSONObject json;
-    private final HashMap<String, Object> values;
-    private final HashMap<String, HashMap<Long, Integer>> chartData;
+    private HashMap<String, Object> values;
+    private HashMap<String, HashMap<Long, Integer>> chartData;
 
     public static Profile getInstance() {
         return INSTANCE;
     }
 
     public static void login(String data) {
-        INSTANCE = new Profile(data);
+        INSTANCE.setData(data);
     }
 
-    private Profile(String data) {
+    private void setData(String data) {
         values = new HashMap<>();
         for (String key : infoKeys) {
             values.put(key, null);

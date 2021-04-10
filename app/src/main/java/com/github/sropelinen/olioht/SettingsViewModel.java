@@ -9,4 +9,11 @@ public class SettingsViewModel extends ViewModel {
         darkMode = false;
     }
 
+    public void setDarkMode(boolean darkMode) {
+        this.darkMode = darkMode;
+    }
+
+    public boolean isDarkMode() {
+        return darkMode;
+    }
 }
