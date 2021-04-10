@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
             toggle.syncState();
             setFragment();
         }
-
         AccountManager.getManager(this); //ToDo Testi, kirjautuu sisään automaattisesti(ei passaa unohtaa tätä kommenttia tähän)
     }
 
