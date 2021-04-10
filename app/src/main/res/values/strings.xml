@@ -4,5 +4,7 @@
     // toolbar
     <string name="open_drawer_text">open drawer</string>
     <string name="close_drawer_text">close drawer</string>
+    // other
+    <string name="go_profile">Edit profile</string>
 
 </resources>

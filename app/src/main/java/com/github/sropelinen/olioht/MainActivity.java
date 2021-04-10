@@ -19,14 +19,18 @@ import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.Set;
+
 public class MainActivity extends AppCompatActivity {
-    DrawerLayout drawerLayout;
-    Toolbar toolbar;
-    ActionBarDrawerToggle toggle;
-    NavigationView navigationView;
-    Fragment fragment = null;
-    Fragment homeFragment = new HomeFragment();
-    ActionBar actionBar;
+    private DrawerLayout drawerLayout;
+    private Toolbar toolbar;
+    private ActionBarDrawerToggle toggle;
+    private NavigationView navigationView;
+    private Fragment fragment = null;
+    private final Fragment homeFragment = new HomeFragment();
+    private final Fragment settingsFragment = new SettingsFragment();
+    private final Fragment chartsFragment = new ChartsFragment();
+    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             setFragment();
         }
 
-        AccountManager.getManager(this); // Testi, kirjautuu sisään automaattisesti
+        AccountManager.getManager(this); // Testi, kirjautuu sisään automaattisesti(ei passaa unohtaa tätä kommenttia tähän)
     }
 
     private void setFragment() {
@@ -64,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
             if (id == R.id.menu_home) {
                 fragment = homeFragment;
             } else if (id == R.id.menu_settings) {
-                // TODO add different fragments
+                fragment = settingsFragment;
             } else if (id == R.id.menu_charts) {
-
+                fragment = chartsFragment;
             }
             FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
