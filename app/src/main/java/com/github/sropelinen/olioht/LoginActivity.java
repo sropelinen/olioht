@@ -33,11 +33,12 @@ public class LoginActivity extends AppCompatActivity {
                 registerFragment).commit();
     }
 
-    public void login() {
-
+    public void login(View view) {
+        AccountManager am = AccountManager.getManager(this);
+        am.login(loginFragment.getName(), loginFragment.getPassword());
     }
 
-    public void register() {
+    public void register(View view) {
 
     }
 
