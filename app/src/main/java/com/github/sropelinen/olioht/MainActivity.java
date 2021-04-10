@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -66,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
             toggle.syncState();
             setFragment();
         }
-        AccountManager.getManager(this); //ToDo Testi, kirjautuu sisään automaattisesti(ei passaa unohtaa tätä kommenttia tähän)
     }
 
     private void setFragment() {
@@ -78,6 +78,9 @@ public class MainActivity extends AppCompatActivity {
                 fragment = settingsFragment;
             } else if (id == R.id.menu_charts) {
                 fragment = chartsFragment;
+            } else if (id == R.id.menu_logout) {
+                this.startActivity(new Intent(this.getApplicationContext(), LoginActivity.class));
+                this.finish();
             }
             FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();

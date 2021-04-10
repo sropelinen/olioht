@@ -21,6 +21,9 @@ public class LoginActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameFragmentContainer,
                     loginFragment).commit();
         }
+
+        AccountManager am = AccountManager.getManager(this);
+        am.login("testikayttaja", "salasana1");
     }
 
     public void returnLogin(View view) {

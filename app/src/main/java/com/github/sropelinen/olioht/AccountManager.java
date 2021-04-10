@@ -9,7 +9,7 @@ public class AccountManager {
     private final UserDao userDao;
 
     private String name, password;
-    private Context context;
+    private final Context context;
 
     public static AccountManager getManager(Context context) {
         if (INSTANCE == null) INSTANCE = new AccountManager(context);
@@ -18,7 +18,6 @@ public class AccountManager {
 
     private AccountManager(Context context) {
         userDao = AccountDatabase.getDatabase(context).userDao();
-        login("testikayttaja", "salasana1"); // TEMP
         this.context = context;
     }
 
@@ -44,7 +43,8 @@ public class AccountManager {
                     // Salasana on oikein
                     Profile.login(Crypto.decryptData(password, user.getData()));
                     // Vaihda activity
-                context.startActivity(new Intent(context.getApplicationContext(), MainActivity.class));
+                    context.startActivity(new Intent(context.getApplicationContext(), MainActivity.class));
+                    ((LoginActivity) context).finish();
                 } else {
                     // Salasana on väärin
                 }
