@@ -20,7 +20,7 @@ public class Profile {
     private final HashMap<String, Object> values;
     private final HashMap<String, HashMap<Long, Integer>> chartData;
 
-    public static Profile getProfile() {
+    public static Profile getInstance() {
         return INSTANCE;
     }
 

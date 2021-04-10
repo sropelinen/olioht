@@ -16,10 +16,14 @@ import android.widget.Button;
 public class HomeFragment extends Fragment {
     View view;
     Button addBtn;
-    Fragment addTravelFragment = new AddTravelFragment();
+    Fragment addTravelFragment;
+    Profile profile;
 
 
-    public HomeFragment() { }
+    public HomeFragment(Profile profile) {
+        this.profile = profile;
+        addTravelFragment = new AddTravelFragment(profile);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

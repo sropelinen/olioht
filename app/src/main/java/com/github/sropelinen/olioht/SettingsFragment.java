@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 public class SettingsFragment extends Fragment {
      private View view;
 
-    public SettingsFragment() {
+    public SettingsFragment(Profile profile) {
         // Required empty public constructor
     }
 

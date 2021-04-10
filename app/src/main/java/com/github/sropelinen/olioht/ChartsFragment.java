@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 public class ChartsFragment extends Fragment {
     View view;
 
-    public ChartsFragment() {
+    public ChartsFragment(Profile profile) {
         // Required empty public constructor
     }
 
