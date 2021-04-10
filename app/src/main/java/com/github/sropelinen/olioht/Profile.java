@@ -20,7 +20,7 @@ public class Profile {
     private final HashMap<String, Object> values;
     private final HashMap<String, HashMap<Long, Integer>> chartData;
 
-    public static Profile getProfile() {
+    public static Profile getInstance() {
         return INSTANCE;
     }
 
@@ -65,6 +65,19 @@ public class Profile {
             return weights.get(Collections.max(weights.keySet()));
         }
         return null;
+    }
+
+    public HashMap<String, Object> getValues(String[] keys) {
+        HashMap<String, Object> values = new HashMap<>();
+        for (String key : keys) {
+            if (infoKeys.contains(key)) {
+                values.put(key, values.get(key));
+            } else if (key.equals("weight")) {
+                HashMap<Long, Integer> weights = chartData.get("weight");
+                values.put(key, weights.get(Collections.max(weights.keySet())));
+            }
+        }
+        return values;
     }
 
     public HashMap<String, HashMap<Long, Integer>> getChartData() {

@@ -2,8 +2,6 @@ package com.github.sropelinen.olioht;
 
 import android.content.Context;
 
-import java.util.HashMap;
-
 public class AccountManager {
 
     private static AccountManager INSTANCE;
@@ -54,7 +52,7 @@ public class AccountManager {
         if (name == null) return;
         execute(() -> {
             User user = userDao.getUser(name);
-            user.setData(Crypto.encryptData(Profile.getProfile().getData(), password));
+            user.setData(Crypto.encryptData(Profile.getInstance().getData(), password));
             userDao.update(user);
         });
     }

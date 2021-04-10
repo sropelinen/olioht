@@ -15,11 +15,8 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
@@ -27,9 +24,9 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private Fragment fragment = null;
-    private final Fragment homeFragment = new HomeFragment();
-    private final Fragment settingsFragment = new SettingsFragment();
-    private final Fragment chartsFragment = new ChartsFragment();
+    private Fragment homeFragment = null;
+    private Fragment settingsFragment = null;
+    private Fragment chartsFragment = null;
     private ActionBar actionBar;
 
     @Override
@@ -39,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar_main);
         drawerLayout = findViewById(R.id.drawer_layout_main);
         navigationView = findViewById(R.id.navigationView);
+
+        Profile profile = Profile.getInstance();
+        homeFragment = new HomeFragment(profile);
+        settingsFragment = new SettingsFragment(profile);
+        chartsFragment = new ChartsFragment(profile);
 
         //set home fragment on launch
         FragmentManager manager = getSupportFragmentManager();
@@ -59,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             setFragment();
         }
 
-        AccountManager.getManager(this); // Testi, kirjautuu sisään automaattisesti(ei passaa unohtaa tätä kommenttia tähän)
+        AccountManager.getManager(this); //ToDo Testi, kirjautuu sisään automaattisesti(ei passaa unohtaa tätä kommenttia tähän)
     }
 
     private void setFragment() {

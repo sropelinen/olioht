@@ -16,7 +16,7 @@ public class SettingsFragment extends Fragment {
     private View view;
     SwitchCompat switchDarkMode;
 
-    public SettingsFragment() {
+    public SettingsFragment(Profile profile) {
         // Required empty public constructor
     }
 

@@ -15,7 +15,7 @@ public class AddTravelFragment extends Fragment {
     HorizontalScrollView scrollView;
     TextView valueInput;
 
-    public AddTravelFragment() { }
+    public AddTravelFragment(Profile profile) { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -23,7 +23,6 @@ public class AddTravelFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_add_travel, container, false);
         scrollView = view.findViewById(R.id.mode_scroll_view);
         valueInput = view.findViewById(R.id.value_input);
-
 
         return view;
     }
