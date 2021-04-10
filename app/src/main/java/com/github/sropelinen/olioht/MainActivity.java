@@ -15,6 +15,8 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -27,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
     private Fragment homeFragment = null;
     private Fragment settingsFragment = null;
     private Fragment chartsFragment = null;
+    private Fragment profileEditFragment = null;
     private ActionBar actionBar;
+    private ImageView profilePic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +40,13 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar_main);
         drawerLayout = findViewById(R.id.drawer_layout_main);
         navigationView = findViewById(R.id.navigationView);
+        profilePic = findViewById(R.id.profile_pic);
 
         Profile profile = Profile.getInstance();
         homeFragment = new HomeFragment(profile);
         settingsFragment = new SettingsFragment(profile);
         chartsFragment = new ChartsFragment(profile);
+        profileEditFragment = new ProfileEditFragment(profile);
 
         //set home fragment on launch
         FragmentManager manager = getSupportFragmentManager();
@@ -60,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
             toggle.syncState();
             setFragment();
         }
-
         AccountManager.getManager(this); //ToDo Testi, kirjautuu sisään automaattisesti(ei passaa unohtaa tätä kommenttia tähän)
     }
 

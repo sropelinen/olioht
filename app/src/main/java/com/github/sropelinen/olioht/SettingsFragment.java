@@ -13,9 +13,9 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 public class SettingsFragment extends Fragment {
-     private View view;
-     private TextView showLog;
-     private final Profile profile;
+    private View view;
+    private TextView showLog;
+    private final Profile profile;
     private SettingsViewModel viewModel;
     SwitchCompat switchDarkMode;
 
