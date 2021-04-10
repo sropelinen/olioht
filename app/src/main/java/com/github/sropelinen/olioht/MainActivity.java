@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
             toggle.syncState();
             setFragment();
         }
+
+        AccountManager.getManager(this); // Testi, kirjautuu sisään automaattisesti
     }
 
     private void setFragment() {
