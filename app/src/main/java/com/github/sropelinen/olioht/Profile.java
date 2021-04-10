@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -57,8 +58,11 @@ public class Profile {
     }
 
     public Object getValue(String key) {
-        if (infoKeys.contains(key) || key.equals("weight")) {
+        if (infoKeys.contains(key)) {
             return values.get(key);
+        } else if (key.equals("weight")) {
+            HashMap<Long, Integer> weights = chartData.get("weight");
+            return weights.get(Collections.max(weights.keySet()));
         }
         return null;
     }
