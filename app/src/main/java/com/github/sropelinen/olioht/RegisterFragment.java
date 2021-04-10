@@ -36,14 +36,14 @@ public class RegisterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        editFirstName = (EditText) view.findViewById(R.id.editFirstName);
-        editLastName = (EditText) view.findViewById(R.id.editLastName);
-        editHeight = (EditText) view.findViewById(R.id.editHeight);
-        editWeight = (EditText) view.findViewById(R.id.editWeight);
-        editUserName = (EditText) view.findViewById(R.id.editUserNameRegister);
-        editPassword = (EditText) view.findViewById(R.id.editPasswordRegister);
+        editFirstName = view.findViewById(R.id.editFirstName);
+        editLastName = view.findViewById(R.id.editLastName);
+        editHeight = view.findViewById(R.id.editHeight);
+        editWeight = view.findViewById(R.id.editWeight);
+        editUserName = view.findViewById(R.id.editUserNameRegister);
+        editPassword = view.findViewById(R.id.editPasswordRegister);
 
-        textDisplayDate = (TextView) view.findViewById(R.id.textDisplayDate);
+        textDisplayDate = view.findViewById(R.id.textDisplayDate);
         textDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

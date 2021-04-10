@@ -24,8 +24,9 @@ public class Profile {
         return INSTANCE;
     }
 
-    public static void login(String data) {
+    public static Profile init(String data) {
         INSTANCE.setData(data);
+        return INSTANCE;
     }
 
     private void setData(String data) {

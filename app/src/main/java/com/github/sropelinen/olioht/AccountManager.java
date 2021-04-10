@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 
+import java.util.HashMap;
+
 public class AccountManager {
 
     private static AccountManager INSTANCE;
@@ -26,9 +28,17 @@ public class AccountManager {
         new Thread(r).start();
     }
 
-    public void addUser(String name, String password) {
+    public void addUser(String name, String password, HashMap<String, Object> values) {
+        // ToDo fallback
         execute(() -> {
+            if (userDao.getUser(name) != null) return;
+            this.name = name;
+            this.password = password;
             userDao.insert(new User(name, Crypto.hashPassword(password, null)));
+            Profile profile = Profile.init("");
+            profile.setValues(values);
+            context.startActivity(new Intent(context.getApplicationContext(), MainActivity.class));
+            ((LoginActivity) context).finish();
         });
     }
 
@@ -37,9 +47,9 @@ public class AccountManager {
         execute(() -> {
             User user = userDao.getUser(name);
             if (user != null && Crypto.checkPassword(user.getPassword(), password)) {
-                this.name = name;
+                this.name = name; // ToDo parempi tapa tehä tää
                 this.password = password;
-                Profile.login(Crypto.decryptData(password, user.getData()));
+                Profile.init(Crypto.decryptData(password, user.getData()));
                 context.startActivity(new Intent(context.getApplicationContext(), MainActivity.class));
                 ((LoginActivity) context).finish();
             } else {
@@ -49,6 +59,7 @@ public class AccountManager {
     }
 
     public void logout() {
+        // ToDo tää o pakko tapahtuu aina ku sovellus menee kii, ainoo mikä tallentaa tietoo
         if (name == null) return;
         execute(() -> {
             User user = userDao.getUser(name);
