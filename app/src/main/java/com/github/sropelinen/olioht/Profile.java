@@ -67,6 +67,19 @@ public class Profile {
         return null;
     }
 
+    public HashMap<String, Object> getValues(String[] keys) {
+        HashMap<String, Object> values = new HashMap<>();
+        for (String key : keys) {
+            if (infoKeys.contains(key)) {
+                values.put(key, values.get(key));
+            } else if (key.equals("weight")) {
+                HashMap<Long, Integer> weights = chartData.get("weight");
+                values.put(key, weights.get(Collections.max(weights.keySet())));
+            }
+        }
+        return values;
+    }
+
     public HashMap<String, HashMap<Long, Integer>> getChartData() {
         return chartData;
     }
