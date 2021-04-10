@@ -13,11 +13,14 @@ public class User {
     @NonNull
     private final String name;
 
-    @ColumnInfo(name = "password")
+    @ColumnInfo(name = "password", typeAffinity = ColumnInfo.BLOB)
     @NonNull
-    private final String password;
+    private byte[] password;
 
-    public User(@NonNull String name, @NonNull String password) {
+    @ColumnInfo(name = "data", typeAffinity = ColumnInfo.BLOB)
+    private byte[] data;
+
+    public User(@NonNull String name, @NonNull byte[] password) {
         this.name = name;
         this.password = password;
     }
@@ -25,7 +28,16 @@ public class User {
     public @NonNull String getName() {
         return name;
     }
-    public @NonNull String getPassword() {
+
+    public @NonNull byte[] getPassword() {
         return password;
+    }
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
     }
 }
