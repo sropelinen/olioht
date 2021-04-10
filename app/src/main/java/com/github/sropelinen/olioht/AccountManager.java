@@ -2,6 +2,7 @@ package com.github.sropelinen.olioht;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 
 public class AccountManager {
 
@@ -31,23 +32,18 @@ public class AccountManager {
         });
     }
 
-    public void login(String name, String password) {
+    public void login(String name, String password, Runnable fallback) {
+        Handler handler = new Handler();
         execute(() -> {
             User user = userDao.getUser(name);
-            if (user == null) {
-                // Käyttäjää ei ole olemassa
+            if (user != null && Crypto.checkPassword(user.getPassword(), password)) {
+                this.name = name;
+                this.password = password;
+                Profile.login(Crypto.decryptData(password, user.getData()));
+                context.startActivity(new Intent(context.getApplicationContext(), MainActivity.class));
+                ((LoginActivity) context).finish();
             } else {
-                if (Crypto.checkPassword(user.getPassword(), password)) {
-                    this.name = name;
-                    this.password = password;
-                    // Salasana on oikein
-                    Profile.login(Crypto.decryptData(password, user.getData()));
-                    // Vaihda activity
-                    context.startActivity(new Intent(context.getApplicationContext(), MainActivity.class));
-                    ((LoginActivity) context).finish();
-                } else {
-                    // Salasana on väärin
-                }
+                handler.post(fallback);
             }
         });
     }

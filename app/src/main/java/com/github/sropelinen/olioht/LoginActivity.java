@@ -22,8 +22,8 @@ public class LoginActivity extends AppCompatActivity {
                     loginFragment).commit();
         }
 
-        AccountManager am = AccountManager.getManager(this);
-        am.login("testikayttaja", "salasana1");
+        //AccountManager am = AccountManager.getManager(this);
+        //am.login("testikayttaja", "salasana1", null);
     }
 
     public void returnLogin(View view) {
@@ -37,8 +37,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(View view) {
-        AccountManager am = AccountManager.getManager(this);
-        am.login(loginFragment.getName(), loginFragment.getPassword());
+        String username = loginFragment.getName();
+        String password = loginFragment.getPassword();
+        if (username.length() == 0 || password.length() == 0) {
+            loginFragment.setErrorMessage("Missing username or password");
+        } else {
+            AccountManager am = AccountManager.getManager(this);
+            am.login(loginFragment.getName(), loginFragment.getPassword(),
+                    () -> loginFragment.setErrorMessage("Invalid username or password"));
+        }
     }
 
     public void register(View view) {
