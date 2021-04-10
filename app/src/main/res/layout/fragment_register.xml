@@ -2,113 +2,161 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ScrollView
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create New User"
+        android:textSize="40sp"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/linearMain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+
+        android:id="@+id/linearMain"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-31dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498"
+        tools:ignore="MissingConstraints">
 
-        <LinearLayout
-            android:id="@+id/mainLinearLayout"
+
+        <EditText
+            android:id="@+id/editFirstName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginVertical="16dp"
+            android:gravity="center"
+            android:hint="First Name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/editLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginVertical="16dp"
+            android:gravity="center"
+            android:hint="Last Name"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/textDisplayDate"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:text="Select birth date"
+            android:textSize="20sp"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginVertical="16dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginVertical="16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editHeight"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:gravity="center"
+                android:hint="Height"
+                android:inputType="number"/>
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="45dp"
+                android:layout_marginHorizontal="4dp"
+                android:gravity="center"
+                android:text="cm"
+                android:textSize="20dp" />
 
 
             <EditText
-                android:id="@+id/firstName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="32dp"
-                android:layout_marginVertical="8dp"
+                android:id="@+id/editWeight"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:layout_marginVertical="4dp"
                 android:gravity="center"
-                android:hint="First Name"
-                android:inputType="textPersonName" />
+                android:hint="Weight"
+                android:inputType="number"/>
 
-            <EditText
-                android:id="@+id/lastName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="32dp"
-                android:layout_marginVertical="8dp"
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="45dp"
+                android:layout_marginHorizontal="4dp"
                 android:gravity="center"
-                android:hint="Last Name"
-                android:inputType="textPersonName" />
-
-            <LinearLayout
-                android:id="@+id/birthDateLinearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="8dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <Spinner
-                    android:id="@+id/yearSpinner"
-                    android:layout_width="120dp"
-                    android:layout_height="45dp"
-                    android:layout_marginHorizontal="4dp"
-                    android:gravity="center" />
-
-                <Spinner
-                    android:id="@+id/monthSpinner"
-                    android:layout_width="120dp"
-                    android:layout_height="45dp"
-                    android:layout_marginHorizontal="4dp"
-                    android:gravity="center" />
-
-                <Spinner
-                    android:id="@+id/daySpinnner"
-                    android:layout_width="120dp"
-                    android:layout_height="45dp"
-                    android:layout_marginHorizontal="4dp"
-                    android:gravity="center" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="8dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:layout_width="100dp"
-                    android:layout_height="45dp"
-                    android:layout_marginHorizontal="4dp"
-                    android:gravity="center"
-                    android:hint="Height" />
-
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="45dp"
-                    android:gravity="center"
-                    android:layout_marginHorizontal="4dp"
-                    android:text="cm"
-                    android:textSize="20dp" />
-
-                <EditText
-                    android:layout_width="100dp"
-                    android:layout_height="45dp"
-                    android:layout_marginVertical="4dp"
-                    android:gravity="center"
-                    android:hint="Weight" />
-
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="45dp"
-                    android:gravity="center"
-                    android:layout_marginHorizontal="4dp"
-                    android:text="kg"
-                    android:textSize="20dp" />
-
-            </LinearLayout>
-
+                android:text="kg"
+                android:textSize="20dp" />
 
         </LinearLayout>
 
+        <EditText
+            android:id="@+id/editUserNameRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginVertical="16dp"
+            android:gravity="center"
+            android:hint="Username"
+            android:inputType="text" />
 
-    </ScrollView>
+        <EditText
+            android:id="@+id/editPasswordRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginVertical="16dp"
+            android:gravity="center"
+            android:hint="Password"
+            android:inputType="textPassword" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearMain"
+        app:layout_constraintVertical_bias="0.421">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:gravity="center"
+            android:text="create" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:gravity="center"
+            android:onClick="returnLogin"
+            android:text="eiku" />
+
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

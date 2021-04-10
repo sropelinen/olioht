@@ -14,17 +14,17 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
         android:gravity="center"
-        android:textColor="@color/red"
         android:textSize="16sp"
+        android:textColor="@color/red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editPasswordLogin"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/editPassword"
+        android:id="@+id/editPasswordLogin"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -47,6 +47,7 @@
         android:layout_marginTop="8dp"
         android:text="register"
         android:textSize="20sp"
+        android:onClick="returnLogin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/login"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +68,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/editName"
+        android:id="@+id/editUserNameLogin"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -76,7 +77,7 @@
         android:hint="Username"
         android:inputType="text"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/editPassword"
+        app:layout_constraintBottom_toTopOf="@+id/editPasswordLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +91,7 @@
         android:text="Log in, please"
         android:textSize="30sp"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/editName"
+        app:layout_constraintBottom_toTopOf="@+id/editUserNameLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

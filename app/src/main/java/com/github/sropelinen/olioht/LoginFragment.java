@@ -11,7 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class LoginFragment extends Fragment {
-    private EditText editName, editPassword;
+
+    private EditText editUsername, editPassword;
 
     @Nullable
     @Override
@@ -23,12 +24,12 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        editName = (EditText) view.findViewById(R.id.editName);
-        editPassword = (EditText) view.findViewById(R.id.editPassword);
+        editUsername = (EditText) view.findViewById(R.id.editUserNameLogin);
+        editPassword = (EditText) view.findViewById(R.id.editPasswordLogin);
     }
 
     public String getName() {
-        return editName.getText().toString();
+        return editUsername.getText().toString();
     }
 
     public String getPassword() {
