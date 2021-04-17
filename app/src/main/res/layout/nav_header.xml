@@ -11,7 +11,7 @@
     <ImageView
         android:clickable="true"
         android:focusable="true"
-        android:id="@+id/profile_pic"
+        android:id="@+id/iv_profile_pic"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@android:drawable/ic_menu_view"

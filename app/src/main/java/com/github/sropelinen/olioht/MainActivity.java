@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar_main);
         drawerLayout = findViewById(R.id.drawer_layout_main);
         navigationView = findViewById(R.id.navigationView);
-        profilePic = findViewById(R.id.profile_pic);
+        profilePic = findViewById(R.id.iv_profile_pic);
 
         Profile profile = Profile.getInstance();
         homeFragment = new HomeFragment(profile);
@@ -71,12 +71,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void setProfileEditFragment() {
+        fragment = profileEditFragment;
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.frame_main, profileEditFragment);
+        transaction.commit();
+        actionBar.setTitle("Edit profile");
+    }
+
     public void setAddTravelFragment() {
         fragment = addTravelFragment;
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frame_main, addTravelFragment);
         transaction.commit();
+        actionBar.setTitle("New travel");
     }
 
 
