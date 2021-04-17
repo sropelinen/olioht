@@ -13,51 +13,37 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
+// ToDo birth date
 
 public class ProfileEditFragment extends Fragment {
     private View view;
-    private EditText etFirstname;
-    private EditText etLastname;
-    private EditText etHeight;
-    private EditText etWeight;
-    private EditText etHome;
-    private TextView tvName;
-    private TextView tvDob;
-    private TextView tvUsername;
-    private String firstnameNew;
-    private String firstnameOld;
-    private String lastnameNew;
-    private String lastnameOld;
-    private String homeNew;
-    private String homeOld;
-    private int heightNew;
-    private int heightOld;
-    private int weightNew;
-    private int weightOld;
+
+    private TextView tvName, tvDob, tvUsername;
+    private final EditText[] textFields = new EditText[5];
+    private final Object[] newValues = new Object[5];
+    private final Object[] oldValues = new Object[5];
+    private final String[] keys = new String[] {
+            "firstName", "lastName", "height", "weight", "home"
+    };
+    private final int[] ids = new int[] {
+            R.id.et_edit_firstname, R.id.et_edit_lastname, R.id.et_edit_height,
+            R.id.et_edit_weight, R.id.et_edit_home
+    };
+
     private Button btnSave;
     private Button btnGoBack;
     private Profile profile;
     private HashMap<String, Object> updatedValues = new HashMap<>();
-    private List<String> infoKeys;
 
 
     public ProfileEditFragment(Profile profile) {
         this.profile = profile;
-        infoKeys = profile.getInfoKeys();
-        firstnameNew = profile.getValue("firstName").toString();
-        firstnameOld = profile.getValue("firstName").toString();
-        lastnameNew = profile.getValue("lastName").toString();
-        lastnameOld = profile.getValue("lastName").toString();
-        heightNew = (Integer) profile.getValue("height");
-        heightOld = (Integer) profile.getValue("height");
-        weightNew = (Integer) profile.getValue("weight");
-        weightOld = weightNew;
-        if (profile.getValue("home") != null) {
-            homeNew = profile.getValue("home").toString();
-            homeOld = profile.getValue("home").toString();
+        for (int i = 0; i < 5; i++) {
+            Object value = profile.getValue(keys[i]);
+            newValues[i] = value;
+            oldValues[i] = value;
         }
     }
 
@@ -66,24 +52,18 @@ public class ProfileEditFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile_edit, container, false);
 
-        etFirstname = view.findViewById(R.id.et_edit_firstname);
-        etLastname = view.findViewById(R.id.et_edit_lastname);
-        etHeight = view.findViewById(R.id.et_edit_height);
-        etWeight = view.findViewById(R.id.et_edit_weight);
+
+        for (int i = 0; i < 5; i++) {
+            textFields[i] = view.findViewById(ids[i]);
+            if (oldValues[i] != null) textFields[i].setText(oldValues[i].toString());
+        }
+
         btnSave = view.findViewById(R.id.btn_save_profile);
         btnGoBack = view.findViewById(R.id.btn_back_to_settings);
         tvName = view.findViewById(R.id.tv_name);
         tvDob = view.findViewById(R.id.tv_dob);
         tvUsername = view.findViewById(R.id.tv_username);
-        etHome = view.findViewById(R.id.et_edit_home);
 
-        etFirstname.setText(firstnameOld);
-        etLastname.setText(lastnameOld);
-        etHeight.setText(heightOld+"");
-        etWeight.setText(weightOld+"");
-        etHome.setText(homeOld);
-//        tvDob.setText(profile.getValue("birthDate").toString()); // TODO activate when possible
-//        tvUsername.setText();
         String name = profile.getValue("firstName").toString() + " " + profile.getValue("lastName").toString();
         tvName.setText(name);
 
@@ -94,108 +74,37 @@ public class ProfileEditFragment extends Fragment {
     }
 
     private void setListeners() {
-        etFirstname.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                firstnameNew = s.toString();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) { }
-        });
-
-        etLastname.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                lastnameNew = s.toString();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) { }
-        });
-
-        etHeight.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                try {
-                    heightNew = Integer.parseInt(s.toString());
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
+        for (int i = 0; i < 5; i++) {
+            int finalI = i;
+            textFields[i].addTextChangedListener(new TextWatcher() {
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (finalI == 2 || finalI == 3) {
+                        newValues[finalI] = Integer.parseInt(s.toString());
+                    } else {
+                        newValues[finalI] = s.toString();
+                    }
                 }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) { }
-        });
-
-        etWeight.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                try {
-                    weightNew = Integer.parseInt(s.toString());
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) { }
-        });
-
-        etHome.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                homeNew = s.toString();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) { }
-        });
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                @Override
+                public void afterTextChanged(Editable s) {}
+            });
+        }
 
         btnSave.setOnClickListener(v -> {
             boolean changed = false;
-            if (!firstnameNew.equals(firstnameOld)) {
-                updatedValues.put("firstName", firstnameNew);
-                firstnameOld = firstnameNew;
-                changed = true;
-            }
-            if (!lastnameNew.equals(lastnameOld)) {
-                updatedValues.put("lastName", lastnameNew);
-                lastnameOld = lastnameNew;
-                changed = true;
-            }
-            if (heightNew != heightOld) {
-                updatedValues.put("height", heightNew);
-                heightOld = heightNew;
-                changed = true;
-            }
-            if (!homeNew.equals(homeOld)) {
-                updatedValues.put("home", homeNew);
-                homeOld = homeNew;
-                changed = true;
-            }
-            if (weightNew != weightOld) {
-                updatedValues.put("weight", weightNew);
-                weightOld = weightNew;
-                changed = true;
+            for (int i = 0; i < 5; i++) {
+                if (!newValues[i].equals(oldValues[i])) {
+                    updatedValues.put(keys[i], newValues[i]);
+                    oldValues[i] = newValues[i];
+                    changed = true;
+                }
             }
             if (changed) {
                 profile.setValues(updatedValues);
+                updatedValues.clear();
             }
         });
 

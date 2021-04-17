@@ -114,8 +114,4 @@ public class Profile {
         return json.toString();
     }
 
-
-    public List<String> getInfoKeys() {
-        return infoKeys;
-    }
 }
