@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setProfileEditFragment() {
-        fragment = profileEditFragment;
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frame_main, profileEditFragment);
@@ -81,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setAddTravelFragment() {
-        fragment = addTravelFragment;
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frame_main, addTravelFragment);
@@ -89,6 +87,13 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setTitle("New travel");
     }
 
+    public void setSettingsFragment() {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.frame_main, settingsFragment);
+        transaction.commit();
+        actionBar.setTitle("Settings");
+    }
 
     private void setFragment() {
         navigationView.setNavigationItemSelectedListener(item -> {

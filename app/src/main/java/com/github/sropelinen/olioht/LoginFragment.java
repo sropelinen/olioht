@@ -38,6 +38,7 @@ public class LoginFragment extends Fragment {
         editPassword.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 ((LoginActivity) view.getContext()).login(view);
+                // TODO close keyboard
             }
             return false;
         });

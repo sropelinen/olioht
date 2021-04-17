@@ -15,6 +15,7 @@ import android.widget.TextView;
 public class SettingsFragment extends Fragment {
     private View view;
     private TextView showLog;
+    private TextView tvUsername;
     private final Profile profile;
     private SettingsViewModel viewModel;
     private SwitchCompat switchDarkMode;
@@ -32,6 +33,9 @@ public class SettingsFragment extends Fragment {
         showLog = view.findViewById(R.id.showLog);
         showLog.setOnClickListener(v -> toggleLog());
         viewModel = new ViewModelProvider(getActivity()).get(SettingsViewModel.class);
+
+        tvUsername = view.findViewById(R.id.tv_name);
+        tvUsername.setText(profile.getValue("userName").toString());
 
         tvEditProfile = view.findViewById(R.id.tv_edit_profile);
         tvEditProfile.setOnClickListener(v -> ((MainActivity) getActivity()).setProfileEditFragment());

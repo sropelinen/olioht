@@ -58,6 +58,7 @@ public class Profile {
         }
     }
 
+
     public Object getValue(String key) {
         if (infoKeys.contains(key)) {
             return values.get(key);
@@ -111,5 +112,10 @@ public class Profile {
 
     public String getData() {
         return json.toString();
+    }
+
+
+    public List<String> getInfoKeys() {
+        return infoKeys;
     }
 }

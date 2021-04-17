@@ -25,8 +25,8 @@ public class LoginActivity extends AppCompatActivity {
                     loginFragment).commit();
         }
 
-        //AccountManager am = AccountManager.getManager(this);
-        //am.login("testikayttaja", "salasana1", null);
+//        AccountManager am = AccountManager.getManager(this);
+//        am.login("testikayttaja", "salasana1", null);
     }
 
     public void returnLogin(View view) {
