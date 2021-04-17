@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment settingsFragment = null;
     private Fragment chartsFragment = null;
     private Fragment profileEditFragment = null;
+    private Fragment addTravelFragment = null;
     private ActionBar actionBar;
     private ImageView profilePic;
 
@@ -41,13 +42,14 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar_main);
         drawerLayout = findViewById(R.id.drawer_layout_main);
         navigationView = findViewById(R.id.navigationView);
-        profilePic = findViewById(R.id.profile_pic);
+        profilePic = findViewById(R.id.iv_profile_pic);
 
         Profile profile = Profile.getInstance();
         homeFragment = new HomeFragment(profile);
         settingsFragment = new SettingsFragment(profile);
         chartsFragment = new ChartsFragment(profile);
         profileEditFragment = new ProfileEditFragment(profile);
+        addTravelFragment = new AddTravelFragment(profile);
 
         //set home fragment on launch
         FragmentManager manager = getSupportFragmentManager();
@@ -68,6 +70,25 @@ public class MainActivity extends AppCompatActivity {
             setFragment();
         }
     }
+
+    public void setProfileEditFragment() {
+        fragment = profileEditFragment;
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.frame_main, profileEditFragment);
+        transaction.commit();
+        actionBar.setTitle("Edit profile");
+    }
+
+    public void setAddTravelFragment() {
+        fragment = addTravelFragment;
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.frame_main, addTravelFragment);
+        transaction.commit();
+        actionBar.setTitle("New travel");
+    }
+
 
     private void setFragment() {
         navigationView.setNavigationItemSelectedListener(item -> {
