@@ -64,7 +64,7 @@ public class RegisterFragment extends Fragment {
         onDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                textDisplayDate.setText(year + "/" + month + "/" + dayOfMonth);
+                textDisplayDate.setText(year + "/" + (month+1) + "/" + dayOfMonth);
             }
         };
     }
@@ -78,16 +78,15 @@ public class RegisterFragment extends Fragment {
     }
 
     public String getBirthDate() {
-        // Tee tää
-        return "";
+        return textDisplayDate.getText().toString();
     }
 
-    public int getHeight() {
-        return Integer.parseInt(editHeight.getText().toString());
+    public String getHeight() {
+        return editHeight.getText().toString();
     }
 
-    public int getWeight() {
-        return Integer.parseInt(editWeight.getText().toString());
+    public String getWeight() {
+        return editWeight.getText().toString();
     }
 
     public String getUserName() {
@@ -97,5 +96,6 @@ public class RegisterFragment extends Fragment {
     public String getPassword() {
         return editPassword.getText().toString();
     }
+
 
 }

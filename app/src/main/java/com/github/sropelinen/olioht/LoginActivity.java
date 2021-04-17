@@ -2,6 +2,8 @@ package com.github.sropelinen.olioht;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,7 +20,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameFragmentContainer,
                     loginFragment).commit();
@@ -53,15 +54,32 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void register(View view) {
-        HashMap<String, Object> values = new HashMap<>();
-        values.put("firstName", registerFragment.getFirstName());
-        values.put("lastName", registerFragment.getLastName());
-        //birthdate
-        values.put("height", registerFragment.getHeight());
-        values.put("weight", registerFragment.getWeight());
-        values.put("userName", registerFragment.getUserName());
-        // ToDo kaikki tarkistukset
-        AccountManager.getManager(this).addUser(registerFragment.getUserName(), registerFragment.getPassword(), values);
-    }
 
+        UserDataChecker checker = new UserDataChecker();
+        String message;
+        if (!((message = checker.validateFirstName(registerFragment.getFirstName())) == null)) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        } else if (!((message = checker.validateLastName(registerFragment.getLastName())) == null)) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        } else if (!((message = checker.validateBirthDate(registerFragment.getBirthDate())) == null)) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        } else if (!((message = checker.validateHeight(registerFragment.getHeight())) == null)) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        } else if (!((message = checker.validateWeight(registerFragment.getWeight())) == null)) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        } else if (!((message = checker.validateUserName(registerFragment.getUserName())) == null)) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        } else if (!((message = checker.validatePassword(registerFragment.getPassword())) == null)) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        } else {
+            HashMap<String, Object> values = new HashMap<>();
+            values.put("firstName", registerFragment.getFirstName());
+            values.put("lastName", registerFragment.getLastName());
+            values.put("birthDate", registerFragment.getBirthDate());
+            values.put("height", Integer.parseInt(registerFragment.getHeight()));
+            values.put("weight", Integer.parseInt(registerFragment.getWeight()));
+            values.put("userName", registerFragment.getUserName());
+            AccountManager.getManager(this).addUser(registerFragment.getUserName(), registerFragment.getPassword(), values);
+        }
+    }
 }
