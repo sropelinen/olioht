@@ -69,5 +69,33 @@ public class RegisterFragment extends Fragment {
         };
     }
 
+    public String getFirstName() {
+        return editFirstName.getText().toString();
+    }
+
+    public String getLastName() {
+        return editLastName.getText().toString();
+    }
+
+    public String getBirthDate() {
+        // Tee tää
+        return "";
+    }
+
+    public int getHeight() {
+        return Integer.parseInt(editHeight.getText().toString());
+    }
+
+    public int getWeight() {
+        return Integer.parseInt(editWeight.getText().toString());
+    }
+
+    public String getUserName() {
+        return editUserName.getText().toString();
+    }
+
+    public String getPassword() {
+        return editPassword.getText().toString();
+    }
 
 }

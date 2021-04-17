@@ -35,7 +35,7 @@ public class AccountManager {
             this.name = name;
             this.password = password;
             userDao.insert(new User(name, Crypto.hashPassword(password, null)));
-            Profile profile = Profile.init("");
+            Profile profile = Profile.init("{}");
             profile.setValues(values);
             context.startActivity(new Intent(context.getApplicationContext(), MainActivity.class));
             ((LoginActivity) context).finish();

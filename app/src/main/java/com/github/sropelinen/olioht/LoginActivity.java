@@ -53,11 +53,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void register(View view) {
-        // ToDo tarkista et kaikki tiedot oikein ja tää loppuun
         HashMap<String, Object> values = new HashMap<>();
-        values.put("height", 153);
-        values.put("firstName", "Henk");
-        AccountManager.getManager(this).addUser("knimi", "ssana", values);
+        values.put("firstName", registerFragment.getFirstName());
+        values.put("lastName", registerFragment.getLastName());
+        //birthdate
+        values.put("height", registerFragment.getHeight());
+        values.put("weight", registerFragment.getWeight());
+        values.put("userName", registerFragment.getUserName());
+        // ToDo kaikki tarkistukset
+        AccountManager.getManager(this).addUser(registerFragment.getUserName(), registerFragment.getPassword(), values);
     }
 
 }
