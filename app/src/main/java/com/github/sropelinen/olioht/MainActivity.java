@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment settingsFragment = null;
     private Fragment chartsFragment = null;
     private Fragment profileEditFragment = null;
+    private Fragment addTravelFragment = null;
     private ActionBar actionBar;
     private ImageView profilePic;
 
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         settingsFragment = new SettingsFragment(profile);
         chartsFragment = new ChartsFragment(profile);
         profileEditFragment = new ProfileEditFragment(profile);
+        addTravelFragment = new AddTravelFragment(profile);
 
         //set home fragment on launch
         FragmentManager manager = getSupportFragmentManager();
@@ -68,6 +70,15 @@ public class MainActivity extends AppCompatActivity {
             setFragment();
         }
     }
+
+    public void setAddTravelFragment() {
+        fragment = addTravelFragment;
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.frame_main, addTravelFragment);
+        transaction.commit();
+    }
+
 
     private void setFragment() {
         navigationView.setNavigationItemSelectedListener(item -> {

@@ -36,10 +36,7 @@ public class HomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         addBtn = view.findViewById(R.id.add_btn);
         addBtn.setOnClickListener(v -> {
-            FragmentManager manager = super.getFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.frame_main, addTravelFragment);
-            transaction.commit();
+            ((MainActivity) getActivity()).setAddTravelFragment();
         });
 
         return view;
