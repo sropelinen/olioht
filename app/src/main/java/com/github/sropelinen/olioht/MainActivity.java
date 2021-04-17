@@ -72,15 +72,17 @@ public class MainActivity extends AppCompatActivity {
     private void setFragment() {
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
+            if (id == R.id.menu_logout) {
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                finish();
+                return false;
+            }
             if (id == R.id.menu_home) {
                 fragment = homeFragment;
             } else if (id == R.id.menu_settings) {
                 fragment = settingsFragment;
             } else if (id == R.id.menu_charts) {
                 fragment = chartsFragment;
-            } else if (id == R.id.menu_logout) {
-                this.startActivity(new Intent(this.getApplicationContext(), LoginActivity.class));
-                this.finish();
             }
             FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
