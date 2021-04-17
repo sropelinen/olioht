@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Profile {
 
-    private final List<String> infoKeys = Arrays.asList("firstName", "lastName", "home", "age", "height");
+    private final List<String> infoKeys = Arrays.asList("firstName", "lastName", "home", "height", "userName", "birthDate");
     private final List<String> chartKeys = Arrays.asList("weight", "car", "train", "bus", "walk", "bike");
 
     private static final Profile INSTANCE = new Profile();

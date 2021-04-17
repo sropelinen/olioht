@@ -167,6 +167,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:gravity="center"
+                    android:onClick="register"
                     android:text="create" />
 
                 <Button

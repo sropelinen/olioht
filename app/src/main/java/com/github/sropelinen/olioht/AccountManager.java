@@ -10,9 +10,9 @@ public class AccountManager {
 
     private static AccountManager INSTANCE;
     private final UserDao userDao;
-
-    private String name, password;
     private final Context context;
+    private User currentUser = null;
+    private String password;
 
     public static AccountManager getManager(Context context) {
         if (INSTANCE == null) INSTANCE = new AccountManager(context);
@@ -32,11 +32,13 @@ public class AccountManager {
         // ToDo fallback
         execute(() -> {
             if (userDao.getUser(name) != null) return;
-            this.name = name;
-            this.password = password;
-            userDao.insert(new User(name, Crypto.hashPassword(password, null)));
-            Profile profile = Profile.init("");
+            User newUser = new User(name, Crypto.hashPassword(password, null));
+            userDao.insert(newUser);
+            Profile profile = Profile.init("{}");
             profile.setValues(values);
+            save(newUser, password);
+            currentUser = newUser;
+            this.password = password;
             context.startActivity(new Intent(context.getApplicationContext(), MainActivity.class));
             ((LoginActivity) context).finish();
         });
@@ -47,7 +49,7 @@ public class AccountManager {
         execute(() -> {
             User user = userDao.getUser(name);
             if (user != null && Crypto.checkPassword(user.getPassword(), password)) {
-                this.name = name; // ToDo parempi tapa tehä tää
+                currentUser = user;
                 this.password = password;
                 Profile.init(Crypto.decryptData(password, user.getData()));
                 context.startActivity(new Intent(context.getApplicationContext(), MainActivity.class));
@@ -58,13 +60,17 @@ public class AccountManager {
         });
     }
 
-    public void logout() {
-        // ToDo tää o pakko tapahtuu aina ku sovellus menee kii, ainoo mikä tallentaa tietoo
-        if (name == null) return;
+    private void save(User user, String password) {
         execute(() -> {
-            User user = userDao.getUser(name);
-            user.setData(Crypto.encryptData(Profile.getInstance().getData(), password));
+            user.setData(Crypto.encryptData(password, Profile.getInstance().getData()));
             userDao.update(user);
         });
+    }
+
+    public void logout() {
+        // ToDo tää o pakko tapahtuu aina ku sovellus menee kii, ainoo mikä tallentaa tietoo
+        if (currentUser != null) {
+            save(currentUser, password);
+        }
     }
 }
