@@ -4,15 +4,20 @@ public class UserDataChecker {
 
     // ToDo Tekstit pitää olla strings.xml tiedostossa
     public String validateUserName(String userName) {
-        if (userName.matches("[A-Za-z0-9]+")) {
-            return null;
-        } else {
+        if (userName.isEmpty()) {
+            return "Syötä käyttäjänimi";
+        }
+        else if (!userName.matches("[A-Za-z0-9]+")) {
             return "Nimi voi sisältää vain kirjaimia a-z ja numeroita";
+        } else {
+            return null;
         }
     }
 
     public String validatePassword(String passWord) {
-        if (passWord.length() < 12) {
+        if (passWord.isEmpty()) {
+            return "Syötä Salasana";
+        } else if (passWord.length() < 12) {
             return "Salasanan pitää olla vähintään 12 merkkiä pitkä";
         } else if (!passWord.matches(".*[a-z].*")) {
             return "Salasanan pitää sisältää vähintään yksi pieni kirjain";
@@ -27,7 +32,10 @@ public class UserDataChecker {
     }
 
     public String validateFirstName(String firstName) {
-        if (firstName.matches(".*[^A-Za-z].*")) {
+        if (firstName.isEmpty()) {
+            return "Syötä etunimi";
+        }
+        else if (firstName.matches(".*[^A-Za-z].*")) {
             return "Etunimen täytyy sisältää vain kirjaimia";
         }
         return null;
@@ -35,7 +43,9 @@ public class UserDataChecker {
 
 
     public String validateLastName(String lastName) {
-        if (lastName.matches(".*[^A-Za-z].*")) {
+        if (lastName.isEmpty()) {
+            return "Syötä etunimi";
+        } else if (lastName.matches(".*[^A-Za-z].*")) {
             return "Sukunimen täytyy sisältää vain kirjaimia";
         }
         return null;
