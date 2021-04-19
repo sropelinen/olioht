@@ -15,6 +15,7 @@ public class Profile {
     private final List<String> chartKeys = Arrays.asList("weight", "car", "train", "bus", "walk", "bike");
 
     private static final Profile INSTANCE = new Profile();
+    private Runnable saver;
 
     private JSONObject json;
     private HashMap<String, Object> values;
@@ -27,6 +28,10 @@ public class Profile {
     public static Profile init(String data) {
         INSTANCE.setData(data);
         return INSTANCE;
+    }
+
+    public void setSaver(Runnable saver) {
+        this.saver = saver;
     }
 
     private void setData(String data) {
@@ -58,6 +63,9 @@ public class Profile {
         }
     }
 
+    public String getData() {
+        return json.toString();
+    }
 
     public Object getValue(String key) {
         if (infoKeys.contains(key)) {
@@ -100,6 +108,9 @@ public class Profile {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        if (saver != null) {
+            saver.run();
+        }
     }
 
     public String getLog() {
@@ -109,9 +120,4 @@ public class Profile {
             return e.toString();
         }
     }
-
-    public String getData() {
-        return json.toString();
-    }
-
 }

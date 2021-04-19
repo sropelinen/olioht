@@ -48,7 +48,8 @@ public class LoginActivity extends AppCompatActivity {
             AccountManager.getManager(this).login(
                     loginFragment.getName(),
                     loginFragment.getPassword(),
-                    () -> loginFragment.setErrorMessage("Invalid username or password")
+                    () -> loginFragment.setErrorMessage("Invalid username or password"),
+                    this
             );
         }
     }
@@ -79,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
             values.put("height", Integer.parseInt(registerFragment.getHeight()));
             values.put("weight", Integer.parseInt(registerFragment.getWeight()));
             values.put("userName", registerFragment.getUserName());
-            AccountManager.getManager(this).addUser(registerFragment.getUserName(), registerFragment.getPassword(), values);
+            AccountManager.getManager(this).addUser(registerFragment.getUserName(), registerFragment.getPassword(), values, this);
         }
     }
 }

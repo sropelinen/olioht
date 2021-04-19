@@ -10,9 +10,6 @@ public class AccountManager {
 
     private static AccountManager INSTANCE;
     private final UserDao userDao;
-    private final Context context;
-    private User currentUser = null;
-    private String password;
 
     public static AccountManager getManager(Context context) {
         if (INSTANCE == null) INSTANCE = new AccountManager(context);
@@ -21,37 +18,34 @@ public class AccountManager {
 
     private AccountManager(Context context) {
         userDao = AccountDatabase.getDatabase(context).userDao();
-        this.context = context;
     }
 
     private void execute(Runnable r) {
         new Thread(r).start();
     }
 
-    public void addUser(String name, String password, HashMap<String, Object> values) {
+    public void addUser(String name, String password, HashMap<String, Object> values, Context context) {
         // ToDo fallback
         execute(() -> {
             if (userDao.getUser(name) != null) return;
             User newUser = new User(name, Crypto.hashPassword(password, null));
             userDao.insert(newUser);
             Profile profile = Profile.init("{}");
+            profile.setSaver(() -> execute(() -> save(newUser, profile.getData(), password)));
             profile.setValues(values);
-            save(newUser, password);
-            currentUser = newUser;
-            this.password = password;
+            save(newUser, profile.getData(), password);
             context.startActivity(new Intent(context.getApplicationContext(), MainActivity.class));
             ((LoginActivity) context).finish();
         });
     }
 
-    public void login(String name, String password, Runnable fallback) {
+    public void login(String name, String password, Runnable fallback, Context context) {
         Handler handler = new Handler();
         execute(() -> {
             User user = userDao.getUser(name);
             if (user != null && Crypto.checkPassword(user.getPassword(), password)) {
-                currentUser = user;
-                this.password = password;
-                Profile.init(Crypto.decryptData(password, user.getData()));
+                Profile profile = Profile.init(Crypto.decryptData(password, user.getData()));
+                profile.setSaver(() -> execute(() -> save(user, profile.getData(), password)));
                 context.startActivity(new Intent(context.getApplicationContext(), MainActivity.class));
                 ((LoginActivity) context).finish();
             } else {
@@ -60,17 +54,8 @@ public class AccountManager {
         });
     }
 
-    private void save(User user, String password) {
-        execute(() -> {
-            user.setData(Crypto.encryptData(password, Profile.getInstance().getData()));
-            userDao.update(user);
-        });
-    }
-
-    public void logout() {
-        // ToDo tää o pakko tapahtuu aina ku sovellus menee kii, ainoo mikä tallentaa tietoo
-        if (currentUser != null) {
-            save(currentUser, password);
-        }
+    private void save(User user, String data, String password) {
+        user.setData(Crypto.encryptData(password, data));
+        userDao.update(user);
     }
 }
