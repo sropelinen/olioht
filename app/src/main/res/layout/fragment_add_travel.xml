@@ -57,7 +57,11 @@
                         android:layout_height="wrap_content"
                         >
 
-                        <Button
+                        <ToggleButton
+                            android:disabledAlpha="1.2"
+                            android:textOff=" "
+                            android:textOn=" "
+                            android:id="@+id/btn_walk"
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:backgroundTint="@color/russian_green_walk"
@@ -69,7 +73,10 @@
                             android:minHeight="0dp"
                             />
 
-                        <Button
+                        <ToggleButton
+                            android:textOff=" "
+                            android:textOn=" "
+                            android:id="@+id/btn_bike"
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:backgroundTint="@color/olive_green_bike"
@@ -82,7 +89,11 @@
                             android:minHeight="0dp"
                             />
 
-                        <Button
+                        <ToggleButton
+                            android:disabledAlpha="1.2"
+                            android:textOff=" "
+                            android:textOn=" "
+                            android:id="@+id/btn_train"
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:backgroundTint="@color/maximum_yellow_train"
@@ -94,7 +105,10 @@
                             android:minHeight="0dp"
                             />
 
-                        <Button
+                        <ToggleButton
+                            android:textOff=" "
+                            android:textOn=" "
+                            android:id="@+id/btn_bus"
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:backgroundTint="@color/raw_sienna_bus"
@@ -106,7 +120,10 @@
                             android:minHeight="0dp"
                             />
 
-                        <Button
+                        <ToggleButton
+                            android:textOff=" "
+                            android:textOn=" "
+                            android:id="@+id/btn_car"
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:backgroundTint="@color/deep_chestnut_car"
@@ -123,7 +140,7 @@
             </FrameLayout>
 
             <EditText
-                android:id="@+id/value_input"
+                android:id="@+id/et_value_input"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -133,6 +150,7 @@
                 />
 
             <CalendarView
+                android:id="@+id/calendar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -143,6 +161,7 @@
     </ScrollView>
 
     <Button
+        android:id="@+id/btn_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
