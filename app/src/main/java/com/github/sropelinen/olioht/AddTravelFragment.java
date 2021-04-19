@@ -2,6 +2,8 @@ package com.github.sropelinen.olioht;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
@@ -16,6 +18,9 @@ import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import java.sql.Time;
+import java.util.HashMap;
+
 public class AddTravelFragment extends Fragment {
     private View view;
     private HorizontalScrollView scrollView;
@@ -26,6 +31,8 @@ public class AddTravelFragment extends Fragment {
     private CalendarView calendar;
     private String mode = "";
     private String inputText;
+    private long date;
+//    private HashMap<String, HashMap<Long, Integer>> HMData;
 
     public AddTravelFragment(Profile profile) { }
 
@@ -64,6 +71,15 @@ public class AddTravelFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) { }
         });
+
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                System.out.println(year+"/"+month+"/"+dayOfMonth+"--"+inputText);
+            }
+        });
+
+
 
         switch (mode) {
             case "":

@@ -146,7 +146,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="32dp"
                 android:inputType="number"
-                android:hint="Syöte tulee tähän"
+                android:hint="Lenght of the travel"
                 />
 
             <CalendarView
