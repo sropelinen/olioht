@@ -32,10 +32,10 @@
             android:text="Your estimated CO2 emission" />
 
         <WebView
-            android:id="@+id/chart2"
+            android:id="@+id/chart1"
             android:layout_marginTop="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="200dp"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -44,10 +44,10 @@
             android:text="Your Weight" />
 
         <WebView
-            android:id="@+id/chart1"
+            android:id="@+id/chart2"
             android:layout_marginTop="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="200dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
