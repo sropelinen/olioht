@@ -1,9 +1,16 @@
 package com.github.sropelinen.olioht;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -11,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -19,7 +27,7 @@ import java.util.HashMap;
 
 public class ProfileEditFragment extends Fragment {
     private View view;
-
+    private ImageView imageView, imageView2, imageView3;
     private TextView tvName, tvDob, tvUsername;
     private final EditText[] textFields = new EditText[5];
     private final Object[] newValues = new Object[5];
@@ -32,8 +40,7 @@ public class ProfileEditFragment extends Fragment {
             R.id.et_edit_weight, R.id.et_edit_home
     };
 
-    private Button btnSave;
-    private Button btnGoBack;
+    private Button btnSave, btnGoBack, btnAddPic;
     private Profile profile;
     private HashMap<String, Object> updatedValues = new HashMap<>();
 
@@ -52,22 +59,23 @@ public class ProfileEditFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile_edit, container, false);
 
-
         for (int i = 0; i < 5; i++) {
             textFields[i] = view.findViewById(ids[i]);
             if (oldValues[i] != null) textFields[i].setText(oldValues[i].toString());
         }
-
         btnSave = view.findViewById(R.id.btn_save_profile);
         btnGoBack = view.findViewById(R.id.btn_back_to_settings);
+        btnAddPic = view.findViewById(R.id.btn_add_pic);
         tvName = view.findViewById(R.id.tv_name);
         tvDob = view.findViewById(R.id.tv_dob);
         tvUsername = view.findViewById(R.id.tv_username);
+        imageView = view.findViewById(R.id.iv_profile_pic_2);
+        imageView2 = ((MainActivity) getActivity()).findViewById(R.id.iv_profile_pic);
+        imageView3 = ((MainActivity) getActivity()).findViewById(R.id.iv_profile_pic_settings);
 
         String name = profile.getValue("firstName").toString() + " " +
                 profile.getValue("lastName").toString();
         tvName.setText(name);
-
         tvUsername.setText(profile.getValue("userName").toString());
 
         setListeners();
@@ -75,6 +83,7 @@ public class ProfileEditFragment extends Fragment {
     }
 
     private void setListeners() {
+        // text changed listeners
         for (int i = 0; i < 5; i++) {
             int finalI = i;
             textFields[i].addTextChangedListener(new TextWatcher() {
@@ -93,6 +102,7 @@ public class ProfileEditFragment extends Fragment {
             });
         }
 
+        // save changes
         btnSave.setOnClickListener(v -> {
             boolean changed = false;
             for (int i = 0; i < 5; i++) {
@@ -108,7 +118,35 @@ public class ProfileEditFragment extends Fragment {
             }
         });
 
+        // set profile pic
+        btnAddPic.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            intent.putExtra("crop", "true");
+            intent.putExtra("scale", true);
+            intent.putExtra("outputX", 256);
+            intent.putExtra("outputY", 256);
+            intent.putExtra("aspectX", 1);
+            intent.putExtra("aspectY", 1);
+            intent.putExtra("return-data", true);
+            startActivityForResult(intent, 1);
+        });
+
         btnGoBack.setOnClickListener(v -> ((MainActivity) getActivity()).setSettingsFragment());
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1
+                && resultCode == MainActivity.RESULT_OK) {
+            final Bundle extras = data.getExtras();
+            if (extras != null) {
+                Bitmap pic = extras.getParcelable("data");
+                imageView.setImageBitmap(pic);
+                imageView2.setImageBitmap(pic);
+                imageView3.setImageBitmap(pic);
+                // TODO teetää
+            }
+        }
+    }
 }
