@@ -2,10 +2,29 @@ package com.github.sropelinen.olioht;
 
 import android.os.Handler;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.Locale;
 import java.util.Scanner;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 // ToDo error handling
 
@@ -27,14 +46,9 @@ public class EstimateParser {
     public void getCarEstimate(int distance, Callback callback) {
         Handler handler = new Handler();
         new Thread(() -> {
-            String url = String.format(Locale.ENGLISH, carApiUrl, buildYear, distance * 365, size, passengers);
-            try {
-                Scanner in = new Scanner(new URL(url).openStream());
-                callback.carEstimate = Double.parseDouble(in.nextLine()) / 365;
-                in.close();
-                handler.post(callback);
-            } catch (IOException e) {
-                e.printStackTrace();
+            String json = getCarJson(distance);
+            if (json != null) {
+                callback.carEstimate = Double.parseDouble(json) / 365;
             }
         }).start();
     }
@@ -44,20 +58,70 @@ public class EstimateParser {
         new Thread(() -> {
             Object[] distances = new Object[] {0, 0, 0, 0};
             if (busDistance > 15) distances[0] = busDistance * 365;
-            else distances[2] = busDistance * 365;
+            else distances[2] = busDistance * 7;
             if (trainDistance > 15) distances[1] = trainDistance * 365;
-            else distances[3] = trainDistance * 365;
-            String url = String.format(Locale.ENGLISH, publicTransportApiUrl, distances);
-            try {
-                Scanner in = new Scanner(new URL(url).openStream());
-                callback.trainEstimate = Double.parseDouble(in.findInLine("(\\d+\\.\\d+)"));
-                callback.busEstimate = Double.parseDouble(in.findInLine("(\\d+\\.\\d+)"));
-                in.close();
-                handler.post(callback);
-            } catch (IOException e) {
-                e.printStackTrace();
+            else distances[3] = trainDistance * 7;
+            String json = getPublicJson(distances);
+            if (json != null) {
+                try {
+                    JSONObject object = new JSONArray("[" + json + "]").getJSONObject(0);
+                    callback.busEstimate = Double.parseDouble(object.getString("Bus")) / 365;
+                    callback.trainEstimate = Double.parseDouble(object.getString("Train")) / 365;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }).start();
+    }
+
+    public String getPublicJson(Object[] distances) {
+        String response = null;
+        try {
+            URL url = new URL(String.format(Locale.ENGLISH, publicTransportApiUrl, distances));
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            response = sb.toString();
+            in.close();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    public String getCarJson(int distance) {
+        String response = null;
+        try {
+            URL url = new URL(String.format(Locale.ENGLISH, carApiUrl, buildYear, distance, size, passengers));
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            response = sb.toString();
+            in.close();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return response;
     }
 
     public static abstract class Callback implements Runnable {
