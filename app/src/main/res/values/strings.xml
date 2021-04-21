@@ -7,4 +7,10 @@
     // other
     <string name="go_profile">Edit profile</string>
 
+    <string-array name="timeline">
+        <item>Last week</item>
+        <item>Last month</item>
+        <item>Last year</item>
+    </string-array>
+
 </resources>

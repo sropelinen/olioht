@@ -4,9 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChartsFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
@@ -17,82 +18,62 @@
             android:gravity="center"
             android:layout_marginTop="16dp"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <Spinner
+            android:id="@+id/spinner_timeline"
             android:layout_marginTop="16dp"
-            android:text="Taulukko 1" />
-
-        <ImageView
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="100dp" />
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Taulukko 2" />
+            android:text="Your estimated CO2 emission" />
 
-        <ImageView
+        <WebView
+            android:id="@+id/chart2"
             android:layout_marginTop="16dp"
             android:layout_width="match_parent"
-            android:layout_height="100dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Taulukko 3" />
-
-        <ImageView
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="100dp" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Taulukko 4" />
+            android:text="Your Weight" />
 
-        <ImageView
+        <WebView
+            android:id="@+id/chart1"
             android:layout_marginTop="16dp"
             android:layout_width="match_parent"
-            android:layout_height="100dp" />
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kilometres travelled by foot:"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Taulukko 5" />
-
-        <ImageView
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="100dp" />
+            android:text="Kilometres travelled by bike:"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Taulukko 6" />
-
-        <ImageView
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="100dp" />
+            android:text="Kilometres travelled by train:"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Taulukko 7" />
+            android:text="Kilometres travelled by bus:"/>
 
-        <ImageView
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="100dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kilometres travelled by car:"/>
+
 
     </LinearLayout>
 </ScrollView>

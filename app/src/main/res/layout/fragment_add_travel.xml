@@ -57,10 +57,7 @@
                         android:layout_height="wrap_content"
                         >
 
-                        <ToggleButton
-                            android:disabledAlpha="1.2"
-                            android:textOff=" "
-                            android:textOn=" "
+                        <Button
                             android:id="@+id/btn_walk"
                             android:layout_width="64dp"
                             android:layout_height="64dp"
@@ -73,9 +70,7 @@
                             android:minHeight="0dp"
                             />
 
-                        <ToggleButton
-                            android:textOff=" "
-                            android:textOn=" "
+                        <Button
                             android:id="@+id/btn_bike"
                             android:layout_width="64dp"
                             android:layout_height="64dp"
@@ -89,10 +84,7 @@
                             android:minHeight="0dp"
                             />
 
-                        <ToggleButton
-                            android:disabledAlpha="1.2"
-                            android:textOff=" "
-                            android:textOn=" "
+                        <Button
                             android:id="@+id/btn_train"
                             android:layout_width="64dp"
                             android:layout_height="64dp"
@@ -105,9 +97,7 @@
                             android:minHeight="0dp"
                             />
 
-                        <ToggleButton
-                            android:textOff=" "
-                            android:textOn=" "
+                        <Button
                             android:id="@+id/btn_bus"
                             android:layout_width="64dp"
                             android:layout_height="64dp"
@@ -120,9 +110,7 @@
                             android:minHeight="0dp"
                             />
 
-                        <ToggleButton
-                            android:textOff=" "
-                            android:textOn=" "
+                        <Button
                             android:id="@+id/btn_car"
                             android:layout_width="64dp"
                             android:layout_height="64dp"
@@ -150,10 +138,10 @@
                 />
 
             <CalendarView
-                android:id="@+id/calendar"
+                android:id="@+id/calendar_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center"
                 android:layout_marginTop="32dp"
                 />
 

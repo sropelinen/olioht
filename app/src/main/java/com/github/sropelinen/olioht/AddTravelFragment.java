@@ -13,135 +13,109 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
-import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import java.sql.Time;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 public class AddTravelFragment extends Fragment {
     private View view;
-    private HorizontalScrollView scrollView;
     private EditText etValueInput;
-    private Button btnSubmit;
-    private ToggleButton btnWalk, btnBike, btnTrain, btnBus, btnCar;
-    private Drawable drawableWalk;
-    private CalendarView calendar;
-    private String mode = "";
-    private String inputText;
-    private long date;
-//    private HashMap<String, HashMap<Long, Integer>> HMData;
+    private CalendarView calendarView;
+    private Calendar calendar;
+    private Profile profile;
+    private final Button[] toggles = new Button[5];
+    private String[] keys = new String[] { "walk", "bike", "train", "bus", "car"};
+    private final int[] ids = new int[] {
+            R.id.btn_walk, R.id.btn_bike, R.id.btn_train, R.id.btn_bus, R.id.btn_car
+    };
+    private int btnIndex = 0;
+    private int[] kmList = new int[5];
+    private int km = 0;
 
-    public AddTravelFragment(Profile profile) { }
+    public AddTravelFragment(Profile profile) {
+        this.profile = profile;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_add_travel, container, false);
-        scrollView = view.findViewById(R.id.mode_scroll_view);
         etValueInput = view.findViewById(R.id.et_value_input);
-        calendar = view.findViewById(R.id.calendar);
-        btnBike = view.findViewById(R.id.btn_bike);
-        btnBus = view.findViewById(R.id.btn_bus);
-        btnCar = view.findViewById(R.id.btn_car);
-        btnTrain = view.findViewById(R.id.btn_train);
-        btnWalk = view.findViewById(R.id.btn_walk);
-        btnSubmit = view.findViewById(R.id.btn_submit);
+        calendarView = view.findViewById(R.id.calendar_view);
+        Button btnSubmit = view.findViewById(R.id.btn_submit);
 
-        modeSelected();
+        for (int i = 0; i < ids.length; i++) {
+            toggles[i] = view.findViewById(ids[i]);
+        }
 
-        btnSubmit.setOnClickListener(v -> sendData());
+        // set calendar to current date
+        calendar = Calendar.getInstance();
+        calendarView.setDate(calendar.getTimeInMillis());
+        // set calendar to match calendarView
+        calendarView.setOnDateChangeListener((view, year, month, dayOfMonth)
+                -> calendar.set(year, month, dayOfMonth));
 
-        return view;
-    }
-
-    // TODO form of the data to send?
-    public void sendData() {
         etValueInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-            @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                inputText = s.toString();
+                if (!s.toString().equals("")) {
+                    km = Integer.parseInt(s.toString());
+                }
             }
-
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void afterTextChanged(Editable s) { }
         });
 
-        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                System.out.println(year+"/"+month+"/"+dayOfMonth+"--"+inputText);
-            }
-        });
+        modeSelected();
+        btnSubmit.setOnClickListener(v -> save());
 
+        return view;
+    }
 
-
-        switch (mode) {
-            case "":
-                break;
-            case "walk":
-                break;
-            case "bike":
-                break;
-            case "bus":
-                break;
-            case "train":
-                break;
-            case "car":
-                break;
-
+    private void save() {
+        kmList[btnIndex] = km;
+        for (int k = 0; k < 5; k++) {
+            System.out.println(kmList[k]);
         }
+
+        HashMap<String, Object> values = new HashMap<>();
+        for (int i = 0; i < kmList.length; i++) {
+            if (kmList[i] != 0) {
+                values.put(keys[i], kmList[i]);
+            }
+            kmList[i] = 0;
+        }
+        values.put("time", calendar.getTimeInMillis()/1000);
+        profile.setValues(values);
     }
 
     private void modeSelected() {
-        btnWalk.setOnClickListener(v -> {
-            btnWalk.setAlpha(1);
-            btnBike.setAlpha(.7f);
-            btnCar.setAlpha(.7f);
-            btnBus.setAlpha(.7f);
-            btnTrain.setAlpha(.7f);
-            mode = "walk";
-        });
+        for (int i = 0; i < ids.length; i++) {
+            int finalI = i;
+            toggles[i].setOnClickListener(v -> {
+                kmList[btnIndex] = km;
+                km = kmList[finalI];
+                if (kmList[finalI] == 0) {
+                    etValueInput.getText().clear();
+                } else {
+                    etValueInput.setText(""+kmList[finalI]);
+                }
+                btnIndex = finalI;
 
-        btnBike.setOnClickListener(v -> {
-            btnBike.setAlpha(1);
-            btnWalk.setAlpha(.7f);
-            btnCar.setAlpha(.7f);
-            btnBus.setAlpha(.7f);
-            btnTrain.setAlpha(.7f);
-            mode = "bike";
-        });
-
-        btnBus.setOnClickListener(v -> {
-            btnBus.setAlpha(1);
-            btnBike.setAlpha(.7f);
-            btnCar.setAlpha(.7f);
-            btnWalk.setAlpha(.7f);
-            btnTrain.setAlpha(.7f);
-            mode = "bus";
-        });
-
-        btnCar.setOnClickListener(v -> {
-            btnCar.setAlpha(1);
-            btnBike.setAlpha(.7f);
-            btnWalk.setAlpha(.7f);
-            btnBus.setAlpha(.7f);
-            btnTrain.setAlpha(.7f);
-            mode = "car";
-        });
-
-        btnTrain.setOnClickListener(v -> {
-            btnTrain.setAlpha(1);
-            btnBike.setAlpha(.7f);
-            btnCar.setAlpha(.7f);
-            btnBus.setAlpha(.7f);
-            btnWalk.setAlpha(.7f);
-            mode = "train";
-        });
+                // visual highlights selected mode
+                for (int j = 0; j < toggles.length; j++) {
+                    if (finalI == j) {
+                        toggles[j].getForeground().setAlpha(255);
+                    } else toggles[j].getForeground().setAlpha(100);
+                }
+            });
+        }
     }
 }

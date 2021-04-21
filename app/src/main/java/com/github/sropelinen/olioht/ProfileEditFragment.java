@@ -40,7 +40,7 @@ public class ProfileEditFragment extends Fragment {
 
     public ProfileEditFragment(Profile profile) {
         this.profile = profile;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < keys.length; i++) {
             Object value = profile.getValue(keys[i]);
             newValues[i] = value;
             oldValues[i] = value;
@@ -64,7 +64,8 @@ public class ProfileEditFragment extends Fragment {
         tvDob = view.findViewById(R.id.tv_dob);
         tvUsername = view.findViewById(R.id.tv_username);
 
-        String name = profile.getValue("firstName").toString() + " " + profile.getValue("lastName").toString();
+        String name = profile.getValue("firstName").toString() + " " +
+                profile.getValue("lastName").toString();
         tvName.setText(name);
 
         tvUsername.setText(profile.getValue("userName").toString());
@@ -74,7 +75,6 @@ public class ProfileEditFragment extends Fragment {
     }
 
     private void setListeners() {
-
         for (int i = 0; i < 5; i++) {
             int finalI = i;
             textFields[i].addTextChangedListener(new TextWatcher() {
