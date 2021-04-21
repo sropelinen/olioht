@@ -80,7 +80,12 @@ public class LoginActivity extends AppCompatActivity {
             values.put("height", Integer.parseInt(registerFragment.getHeight()));
             values.put("weight", Integer.parseInt(registerFragment.getWeight()));
             values.put("userName", registerFragment.getUserName());
-            AccountManager.getManager(this).addUser(registerFragment.getUserName(), registerFragment.getPassword(), values, this);
+            AccountManager.getManager(this).addUser(
+                    registerFragment.getUserName(),
+                    registerFragment.getPassword(),
+                    values,
+                    () -> Toast.makeText(this, "User already exists", Toast.LENGTH_SHORT).show(),
+                    this);
         }
     }
 }

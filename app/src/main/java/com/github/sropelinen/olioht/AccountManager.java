@@ -24,10 +24,13 @@ public class AccountManager {
         new Thread(r).start();
     }
 
-    public void addUser(String name, String password, HashMap<String, Object> values, Context context) {
-        // ToDo fallback
+    public void addUser(String name, String password, HashMap<String, Object> values, Runnable fallback, Context context) {
+        Handler handler = new Handler();
         execute(() -> {
-            if (userDao.getUser(name) != null) return;
+            if (userDao.getUser(name) != null) {
+                handler.post(fallback);
+                return;
+            }
             User newUser = new User(name, Crypto.hashPassword(password, null));
             userDao.insert(newUser);
             Profile profile = Profile.init("{}");
