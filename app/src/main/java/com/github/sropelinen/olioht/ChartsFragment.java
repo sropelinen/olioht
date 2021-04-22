@@ -64,6 +64,15 @@ public class ChartsFragment extends Fragment {
             }
         });
 
+        final WebView emissionChart = view.findViewById(R.id.chart3);
+        emissionChart.getSettings().setJavaScriptEnabled(true);
+        emissionChart.loadUrl("file:///android_asset/index.html");
+        emissionChart.setWebViewClient(new WebViewClient() {
+            public void onPageFinished(WebView wv, String url) {
+                updateEmissionChart(emissionChart, profile.getChartData(), 7);
+            }
+        });
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -76,6 +85,7 @@ public class ChartsFragment extends Fragment {
                 for (int i = 0; i < kmList.length; i++) {
                     kmList[i] = 0;
                 }
+                updateEmissionChart(emissionChart, profile.getChartData(), days);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
@@ -131,9 +141,7 @@ public class ChartsFragment extends Fragment {
                     .append(calendar.get(Calendar.MONTH)).append(",")
                     .append(calendar.get(Calendar.DAY_OF_MONTH)).append("),");
             if (dayData.containsKey(day)) {
-                for (int k = 0; k < dayData.get(day).length; k++) {
-                    int d = dayData.get(day)[k];
-                    kmList[k] += d; //TODO gets wrong kilometers
+                for (int d : dayData.get(day)) {
                     if (d > maxY) maxY = d;
                     dataTable.append(d);
                     dataTable.append(",");
@@ -186,5 +194,72 @@ public class ChartsFragment extends Fragment {
         String command = String.format(Locale.ENGLISH, "javascript:draw(%d, ['weight'], [%s], %d)",
                 amount, dataTable.toString(), maxY);
         webView.loadUrl(command);
+    }
+
+    private void updateEmissionChart(WebView webView, HashMap<String, HashMap<Long, Integer>> data, int days) {
+
+        int carDist = 0;
+        for (int dist : data.get("car").values()) carDist += dist;
+        int finalCarDistance = ((data.get("car").size() != 0) ? carDist / data.get("car").size() : 0);
+        int busDist = 0;
+        for (int dist : data.get("bus").values()) busDist += dist;
+        int finalBusDistance = ((data.get("bus").size() != 0) ? busDist / data.get("bus").size() : 0);
+        int trainDist = 0;
+        for (int dist : data.get("train").values()) trainDist += dist;
+        int finalTrainDistance = ((data.get("train").size() != 0) ? trainDist / data.get("train").size() : 0);
+
+        EstimateParser estimateParser = EstimateParser.getInstance();
+        estimateParser.getTransportEstimate(finalCarDistance, finalBusDistance, finalTrainDistance, new EstimateParser.Callback() {
+            @Override
+            public void run() {
+                HashMap<String, Double> multipliers = new HashMap<>();
+                multipliers.put("car", carEstimate / finalCarDistance);
+                multipliers.put("bus", busEstimate / finalBusDistance);
+                multipliers.put("train", trainEstimate / finalTrainDistance);
+
+                HashMap<Integer, Double> dayData = new HashMap<>();
+                for (String key : data.keySet()) {
+                    if (multipliers.containsKey(key)) {
+                        HashMap<Long, Integer> timeData = data.get(key);
+                        for (Long time : timeData.keySet()) {
+                            int day = (int) (time / (24 * 60 * 60));
+                            if (!dayData.containsKey(day)) {
+                                dayData.put(day, 0.0);
+                            }
+                            dayData.put(day, dayData.get(day) + timeData.get(time) * multipliers.get(key));
+                        }
+                    }
+                }
+                if (dayData.size() == 0) return;
+
+                int amount = 0;
+                StringBuilder dataTable = new StringBuilder();
+                Calendar calendar = Calendar.getInstance();
+                int today = (int) (System.currentTimeMillis() / (24 * 60 * 60 * 1000));
+                int start = Collections.min(dayData.keySet());
+                if (today - days > start) start = today - days;
+                for (int day = start; day <= today; day++) {
+                    amount++;
+                    calendar.setTimeInMillis((long) day * 24 * 60 * 60 * 1000);
+                    dataTable.append("[new Date(").append(calendar.get(Calendar.YEAR)).append(",")
+                            .append(calendar.get(Calendar.MONTH)).append(",")
+                            .append(calendar.get(Calendar.DAY_OF_MONTH)).append("),");
+                    if (dayData.containsKey(day)) {
+                        dataTable.append(dayData.get(day));
+                    } else {
+                        dataTable.append(0);
+                    }
+                    dataTable.append(",0],");
+                }
+                dataTable.deleteCharAt(dataTable.length() - 1);
+
+                double maxY = Collections.max(dayData.values()) * 1.5;
+                if (maxY < 1) maxY = 1;
+
+                String command = String.format(Locale.ENGLISH, "javascript:draw(%d, ['CO2 emission'], [%s], %d)",
+                        amount, dataTable.toString(), (int) maxY);
+                webView.loadUrl(command);
+            }
+        });
     }
 }
