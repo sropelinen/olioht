@@ -12,6 +12,7 @@ import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.Collections;
@@ -23,8 +24,11 @@ public class ChartsFragment extends Fragment {
     private Spinner spinner;
     private ArrayAdapter<String> adapter;
     private Profile profile;
-
-
+    private int[] ids = new int[] {
+            R.id.tv_km_walk, R.id.tv_km_bike, R.id.tv_km_train, R.id.tv_km_bus, R.id.tv_km_car
+    };
+    private TextView[] textViews = new TextView[ids.length];
+    private int[] kmList = new int[ids.length];
     public ChartsFragment(Profile profile) {
         this.profile = profile;
     }
@@ -33,7 +37,12 @@ public class ChartsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_charts, container, false);
+        for (int i = 0; i < ids.length; i++) {
+            textViews[i] = view.findViewById(ids[i]);
+        }
         spinner = view.findViewById(R.id.spinner_timeline);
+
+        // initialize spinner
         adapter = new ArrayAdapter<>(((MainActivity) getActivity()), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.timeline));
         spinner.setAdapter(adapter);
 
@@ -63,12 +72,24 @@ public class ChartsFragment extends Fragment {
                 else if (position == 2) days = 365;
                 updateKmChart(kmChart, profile.getChartData(), days);
                 updateWeightChart(weightChart, profile.getChartData(), days);
+                updateTotalKm();
+                for (int i = 0; i < kmList.length; i++) {
+                    kmList[i] = 0;
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
         return view;
+    }
+
+    private void updateTotalKm() {
+        textViews[0].setText("Kilometres travelled by foot: "+ kmList[0]);
+        textViews[1].setText("Kilometres travelled by bike: "+ kmList[1]);
+        textViews[2].setText("Kilometres travelled by train: "+ kmList[2]);
+        textViews[3].setText("Kilometres travelled by bus: "+ kmList[3]);
+        textViews[4].setText("Kilometres travelled by car: "+ kmList[4]);
     }
 
     private void updateKmChart(WebView webView, HashMap<String, HashMap<Long, Integer>> data, int days) {
@@ -110,7 +131,9 @@ public class ChartsFragment extends Fragment {
                     .append(calendar.get(Calendar.MONTH)).append(",")
                     .append(calendar.get(Calendar.DAY_OF_MONTH)).append("),");
             if (dayData.containsKey(day)) {
-                for (int d : dayData.get(day)) {
+                for (int k = 0; k < dayData.get(day).length; k++) {
+                    int d = dayData.get(day)[k];
+                    kmList[k] += d; //TODO gets wrong kilometers
                     if (d > maxY) maxY = d;
                     dataTable.append(d);
                     dataTable.append(",");
