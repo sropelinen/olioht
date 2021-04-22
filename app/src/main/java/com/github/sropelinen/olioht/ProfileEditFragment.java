@@ -56,7 +56,6 @@ public class ProfileEditFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile_edit, container, false);
 
-
         for (int i = 0; i < 5; i++) {
             textFields[i] = view.findViewById(ids[i]);
             if (oldValues[i] != null) textFields[i].setText(oldValues[i].toString());
@@ -72,14 +71,11 @@ public class ProfileEditFragment extends Fragment {
         imageView2 = view.findViewById(R.id.iv_profile_pic_2);
         imageView3 = view.findViewById(R.id.iv_profile_pic_settings);
 
-
         String name = profile.getValue("firstName").toString() + " " +
                 profile.getValue("lastName").toString();
         tvName.setText(name);
-
         tvUsername.setText(profile.getValue("userName").toString());
         tvDob.setText(profile.getValue("birthDate").toString());
-
         setListeners();
         return view;
     }
@@ -144,6 +140,14 @@ public class ProfileEditFragment extends Fragment {
         btnGoBack.setOnClickListener(v -> ((MainActivity) getActivity()).setSettingsFragment());
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        for (int i = 0; i < keys.length; i++) {
+            Object value = profile.getValue(keys[i]);
+            if (value != null) textFields[i].setText(value.toString());
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

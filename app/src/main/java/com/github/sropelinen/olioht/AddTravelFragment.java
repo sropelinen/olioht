@@ -18,13 +18,14 @@ import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ToggleButton;
 
+import java.net.Inet4Address;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
 public class AddTravelFragment extends Fragment {
     private View view;
-    private EditText etValueInput;
+    private EditText etValueInput, etWeightInput;
     private CalendarView calendarView;
     private Calendar calendar;
     private Profile profile;
@@ -35,7 +36,7 @@ public class AddTravelFragment extends Fragment {
     };
     private int btnIndex = 0;
     private int[] kmList = new int[5];
-    private int km = 0;
+    private int km = 0, weight = 0;
 
     public AddTravelFragment(Profile profile) {
         this.profile = profile;
@@ -46,6 +47,7 @@ public class AddTravelFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_add_travel, container, false);
         etValueInput = view.findViewById(R.id.et_value_input);
+        etWeightInput = view.findViewById(R.id.et_update_weight);
         calendarView = view.findViewById(R.id.calendar_view);
         Button btnSubmit = view.findViewById(R.id.btn_submit);
 
@@ -61,11 +63,24 @@ public class AddTravelFragment extends Fragment {
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth)
                 -> calendar.set(year, month, dayOfMonth));
 
+        // text listeners
         etValueInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!s.toString().equals("")) {
                     km = Integer.parseInt(s.toString());
+                }
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+        etWeightInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().equals("")) {
+                    weight = Integer.parseInt(s.toString());
                 }
             }
             @Override
@@ -94,6 +109,9 @@ public class AddTravelFragment extends Fragment {
             kmList[i] = 0;
         }
         values.put("time", calendar.getTimeInMillis()/1000);
+        if (weight != 0) {
+            values.put("weight", weight);
+        }
         profile.setValues(values);
     }
 
@@ -110,7 +128,7 @@ public class AddTravelFragment extends Fragment {
                 }
                 btnIndex = finalI;
 
-                // visual highlights selected mode
+                // highlights selected mode
                 for (int j = 0; j < toggles.length; j++) {
                     if (finalI == j) {
                         toggles[j].getForeground().setAlpha(255);

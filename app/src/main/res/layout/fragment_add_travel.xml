@@ -145,6 +145,16 @@
                 android:layout_marginTop="32dp"
                 />
 
+            <EditText
+                android:id="@+id/et_update_weight"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="32dp"
+                android:inputType="number"
+                android:hint="Weight (optional)"
+                />
+
         </LinearLayout>
     </ScrollView>
 

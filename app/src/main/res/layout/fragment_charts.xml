@@ -29,7 +29,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Your estimated CO2 emission" />
+            android:text="Estimated CO2 emission (CO2eq)" />
+
+        <WebView
+            android:id="@+id/chart3"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Weight (kg)" />
+
+        <WebView
+            android:id="@+id/chart2"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Distance travelled (km)" />
 
         <WebView
             android:id="@+id/chart1"
@@ -38,17 +62,7 @@
             android:layout_height="200dp"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Your Weight" />
-
-        <WebView
-            android:id="@+id/chart2"
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="200dp" />
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kilometres travelled by foot:"/>
