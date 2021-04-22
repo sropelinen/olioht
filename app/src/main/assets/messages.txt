@@ -1,0 +1,6 @@
+Your carbon footprint has decreased from last week. Well done, %s!
+Your carbon footprint has increased from last week. Oof! Not cool, %s...
+Welcome, %s! To add new travel, click ADD from bottom-right.
+Welcome back, %s! If you need to change some setting, open settings from sidebar and click EDIT PROFILE
+Hello, %s. Do you drive a car frequently? Try public transport instead!
+Hi, %s. If your you travel short distances frequently, try walking and cycling. It's also a great exercise!

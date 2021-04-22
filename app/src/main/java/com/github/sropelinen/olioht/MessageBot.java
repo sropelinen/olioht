@@ -24,7 +24,6 @@ public class MessageBot{
             InputStream in = context.openFileInput("messages.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String s;
-            greeting = br.readLine();
             goodJob = br.readLine();
             badJob = br.readLine();
             while ((s = br.readLine()) != null) {
