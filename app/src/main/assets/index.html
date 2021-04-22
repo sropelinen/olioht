@@ -4,7 +4,7 @@
     <script type="text/javascript">
         google.charts.load("current", {"packages": ["corechart"]});
 
-        function draw(amount, headers, dataTable) {
+        function draw(amount, headers, dataTable, maxY) {
 
             var data = new google.visualization.DataTable();
             data.addColumn("date", "Date");
@@ -31,6 +31,7 @@
                 },
                 vAxis: {
                     viewWindow: {
+                        max: maxY,
                         min: 0
                     }
                 },
@@ -38,9 +39,9 @@
                     position: "bottom"
                 },
                 chartArea: {
-                    left: 20,
+                    left: 30,
                     right: 20,
-                    top: 20
+                    top: 10
                 }
             };
             var chart = new google.visualization.LineChart(document.getElementById("chart"));

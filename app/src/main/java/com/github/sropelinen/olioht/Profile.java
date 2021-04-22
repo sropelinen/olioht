@@ -54,7 +54,11 @@ public class Profile {
                     if (infoKeys.contains(key)) {
                         values.put(key, dataPoint.get(key));
                     } else if (chartKeys.contains(key)) {
-                        chartData.get(key).put(time, (int) dataPoint.get(key));
+                        long t = time;
+                        if (dataPoint.has("time")) {
+                            t = Long.parseLong(dataPoint.get("time").toString());
+                        }
+                        chartData.get(key).put(t, (int) dataPoint.get(key));
                     }
                 }
             }
@@ -100,7 +104,14 @@ public class Profile {
             if (infoKeys.contains(key)) {
                 values.put(key, newValues.get(key));
             } else if (chartKeys.contains(key)) {
-                chartData.get(key).put(time, (int) newValues.get(key));
+                long t = time;
+                if (newValues.containsKey("time")) {
+                    t = Long.parseLong(newValues.get("time").toString());
+                }
+                if (!chartData.get(key).containsKey(t)) {
+                    chartData.get(key).put(t, 0);
+                }
+                chartData.get(key).put(t, chartData.get(key).get(t) + (int) newValues.get(key));
             }
         }
         try {
