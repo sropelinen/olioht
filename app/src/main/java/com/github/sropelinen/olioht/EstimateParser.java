@@ -26,8 +26,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-// ToDo error handling
-
 public class EstimateParser {
 
     private static final EstimateParser INSTANCE = new EstimateParser();
@@ -35,27 +33,20 @@ public class EstimateParser {
     private final String carApiUrl = "https://ilmastodieetti.ymparisto.fi/ilmastodieetti/calculatorapi/v1/TransportCalculator/CarEstimate?query.buildYear=%d&query.driveDistance=%d&query.size=%s&query.passengerCount=%d";
     private final String publicTransportApiUrl = "https://ilmastodieetti.ymparisto.fi/ilmastodieetti/calculatorapi/v1/TransportCalculator/PublicTransportEstimate?longDistanceBusYear=%d&longDistanceTrainYear=%d&cityBusWeek=%d&cityTrainWeek=%d";
 
-    // ToDo pitäiskö nää ottaa asetuksista
     private final int buildYear = 2000, passengers = 1;
-    private final String size = "mini";
+    private final String size = "smallFamily";
 
     public static EstimateParser getInstance() {
         return INSTANCE;
     }
 
-    public void getCarEstimate(int distance, Callback callback) {
+    public void getTransportEstimate(int carDistance, int busDistance, int trainDistance, Callback callback) {
         Handler handler = new Handler();
         new Thread(() -> {
-            String json = getCarJson(distance);
-            if (json != null) {
-                callback.carEstimate = Double.parseDouble(json) / 365;
+            String carJson = getCarJson(carDistance);
+            if (carJson != null) {
+                callback.carEstimate = Double.parseDouble(carJson) / 365;
             }
-        }).start();
-    }
-
-    public void getPublicTransportEstimate(int busDistance, int trainDistance, Callback callback) {
-        Handler handler = new Handler();
-        new Thread(() -> {
             Object[] distances = new Object[] {0, 0, 0, 0};
             if (busDistance > 15) distances[0] = busDistance * 365;
             else distances[2] = busDistance * 7;
@@ -71,8 +62,10 @@ public class EstimateParser {
                     e.printStackTrace();
                 }
             }
+            handler.post(callback);
         }).start();
     }
+
 
     public String getPublicJson(Object[] distances) {
         String response = null;
