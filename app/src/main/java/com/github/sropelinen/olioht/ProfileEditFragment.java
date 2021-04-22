@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 
@@ -77,6 +78,7 @@ public class ProfileEditFragment extends Fragment {
                 profile.getValue("lastName").toString();
         tvName.setText(name);
         tvUsername.setText(profile.getValue("userName").toString());
+        tvDob.setText(profile.getValue("birthDate").toString());
 
         setListeners();
         return view;
@@ -90,9 +92,13 @@ public class ProfileEditFragment extends Fragment {
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     if (finalI == 2 || finalI == 3) {
-                        newValues[finalI] = Integer.parseInt(s.toString());
+                        if (!s.toString().equals("")) {
+                            newValues[finalI] = Integer.parseInt(s.toString());
+                        }
                     } else {
-                        newValues[finalI] = s.toString();
+                        if (!s.toString().equals("")) {
+                            newValues[finalI] = s.toString();
+                        }
                     }
                 }
                 @Override
@@ -115,6 +121,7 @@ public class ProfileEditFragment extends Fragment {
             if (changed) {
                 profile.setValues(updatedValues);
                 updatedValues.clear();
+                Toast.makeText(super.getContext(), "Saved", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -131,6 +138,7 @@ public class ProfileEditFragment extends Fragment {
             startActivityForResult(intent, 1);
         });
 
+        // return
         btnGoBack.setOnClickListener(v -> ((MainActivity) getActivity()).setSettingsFragment());
     }
 
@@ -145,7 +153,7 @@ public class ProfileEditFragment extends Fragment {
                 imageView.setImageBitmap(pic);
                 imageView2.setImageBitmap(pic);
                 imageView3.setImageBitmap(pic);
-                // TODO teetää
+                // TODO save profile pic to profile (not important)
             }
         }
     }

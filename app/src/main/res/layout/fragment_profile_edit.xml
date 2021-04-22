@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="add"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toEndOf="@+id/iv_profile_pic_2"
         app:layout_constraintTop_toTopOf="@+id/iv_profile_pic_2" />
@@ -148,12 +149,11 @@
         android:id="@+id/btn_back_to_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="42dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
         android:text="back"
-        android:onClick="goBack"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_save_profile" />
+        app:layout_constraintTop_toTopOf="@+id/iv_profile_pic_2"
+        app:layout_constraintEnd_toStartOf="@+id/iv_profile_pic_2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

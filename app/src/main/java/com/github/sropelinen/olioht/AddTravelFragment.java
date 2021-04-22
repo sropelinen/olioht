@@ -58,6 +58,7 @@ public class AddTravelFragment extends Fragment {
         // set calendar to current date
         calendar = Calendar.getInstance();
         calendarView.setDate(calendar.getTimeInMillis());
+        calendarView.setMaxDate(calendar.getTimeInMillis());
         // set calendar to match calendarView
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth)
                 -> calendar.set(year, month, dayOfMonth));
