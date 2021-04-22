@@ -102,7 +102,7 @@
                 android:text="Height: "/>
 
             <EditText
-                android:id="@+id/et_edit_weight"
+                android:id="@+id/et_edit_height"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:inputType="number"/>
@@ -114,7 +114,7 @@
                 android:text="Weight: " />
 
             <EditText
-                android:id="@+id/et_edit_height"
+                android:id="@+id/et_edit_weight"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:inputType="number"/>
