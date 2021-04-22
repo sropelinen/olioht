@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -41,7 +42,7 @@ public class ChartsFragment extends Fragment {
         kmChart.loadUrl("file:///android_asset/index.html");
         kmChart.setWebViewClient(new WebViewClient() {
             public void onPageFinished(WebView wv, String url) {
-                updateKmChart(kmChart, profile.getChartData());
+                updateKmChart(kmChart, profile.getChartData(), 7);
             }
         });
 
@@ -50,14 +51,27 @@ public class ChartsFragment extends Fragment {
         weightChart.loadUrl("file:///android_asset/index.html");
         weightChart.setWebViewClient(new WebViewClient() {
             public void onPageFinished(WebView wv, String url) {
-                updateWeightChart(weightChart, profile.getChartData());
+                updateWeightChart(weightChart, profile.getChartData(), 7);
             }
+        });
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                int days = 7;
+                if (position == 1) days = 30;
+                else if (position == 2) days = 365;
+                updateKmChart(kmChart, profile.getChartData(), days);
+                updateWeightChart(weightChart, profile.getChartData(), days);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
         return view;
     }
 
-    private void updateKmChart(WebView webView, HashMap<String, HashMap<Long, Integer>> data) {
+    private void updateKmChart(WebView webView, HashMap<String, HashMap<Long, Integer>> data, int days) {
 
         data = (HashMap<String, HashMap<Long, Integer>>) data.clone();
         data.remove("weight");
@@ -86,7 +100,9 @@ public class ChartsFragment extends Fragment {
         Calendar calendar = Calendar.getInstance();
         int today = (int) (System.currentTimeMillis() / (24 * 60 * 60 * 1000));
         int maxY = 0;
-        for (int day = Collections.min(dayData.keySet()); day <= today; day++) {
+        int start = Collections.min(dayData.keySet());
+        if (today - days > start) start = today - days;
+        for (int day = start; day <= today; day++) {
             amount++;
             calendar.setTimeInMillis((long) day * 24 * 60 * 60 * 1000);
             dataTable.append("[new Date(").append(calendar.get(Calendar.YEAR)).append(",")
@@ -112,7 +128,7 @@ public class ChartsFragment extends Fragment {
         webView.loadUrl(command);
     }
 
-    private void updateWeightChart(WebView webView, HashMap<String, HashMap<Long, Integer>> data) {
+    private void updateWeightChart(WebView webView, HashMap<String, HashMap<Long, Integer>> data, int days) {
 
         HashMap<Integer, Integer> dayData = new HashMap<>();
         for (Long time : data.get("weight").keySet()) {
@@ -126,7 +142,9 @@ public class ChartsFragment extends Fragment {
         StringBuilder dataTable = new StringBuilder();
         Calendar calendar = Calendar.getInstance();
 
-        for (int day = Collections.min(dayData.keySet()); day <= today; day++) {
+        int start = Collections.min(dayData.keySet());
+        if (today - days > start) start = today - days;
+        for (int day = start; day <= today; day++) {
             amount++;
             calendar.setTimeInMillis((long) day * 24 * 60 * 60 * 1000);
             dataTable.append("[new Date(").append(calendar.get(Calendar.YEAR)).append(",")
