@@ -21,17 +21,16 @@ public class MessageBot{
 
     public void readMessages(Context context) {
         try {
-            InputStream in = context.openFileInput("messages.txt");
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+                    context.getAssets().open("messages.txt")));
             String s;
-            greeting = br.readLine();
             goodJob = br.readLine();
             badJob = br.readLine();
             while ((s = br.readLine()) != null) {
                 messages.add(s);
             }
             System.out.println("File read successfully");
-            in.close();
+            br.close();
         } catch (IOException e) {
             Log.e("IOException", "Virhe syötteessä");
         }
