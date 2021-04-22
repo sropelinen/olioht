@@ -94,6 +94,7 @@ public class ChartsFragment extends Fragment {
             }
             i++;
         }
+        if (dayData.size() == 0) return;
 
         int amount = 0;
         StringBuilder dataTable = new StringBuilder();

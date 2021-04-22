@@ -139,4 +139,14 @@ public class MainActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         toggle.onConfigurationChanged(newConfig);
     }
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.frame_main, homeFragment);
+        transaction.commit();
+        drawerLayout.closeDrawers();
+        actionBar.setTitle("Home");
+    }
 }
