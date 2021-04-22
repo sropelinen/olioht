@@ -8,19 +8,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="CHARTS"
-            android:textSize="20pt"
+            android:text="View your stats here!"
+            android:textSize="13pt"
             android:gravity="center"
             android:layout_marginTop="16dp"/>
 
         <Spinner
             android:id="@+id/spinner_timeline"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -62,28 +63,32 @@
             android:layout_height="200dp"/>
 
         <TextView
+            android:id="@+id/tv_km_walk"
             android:layout_marginTop="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kilometres travelled by foot:"/>
 
         <TextView
+            android:id="@+id/tv_km_bike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kilometres travelled by bike:"/>
 
         <TextView
+            android:id="@+id/tv_km_train"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kilometres travelled by train:"/>
 
         <TextView
+            android:id="@+id/tv_km_bus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kilometres travelled by bus:"/>
 
-
         <TextView
+            android:id="@+id/tv_km_car"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kilometres travelled by car:"/>
