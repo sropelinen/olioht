@@ -1,6 +1,5 @@
 package com.github.sropelinen.olioht;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -9,11 +8,9 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.DatePicker;
@@ -51,6 +48,7 @@ public class AddTravelFragment extends Fragment {
         etValueInput = view.findViewById(R.id.et_value_input);
         calendarView = view.findViewById(R.id.calendar_view);
         Button btnSubmit = view.findViewById(R.id.btn_submit);
+
         for (int i = 0; i < ids.length; i++) {
             toggles[i] = view.findViewById(ids[i]);
         }
@@ -76,16 +74,6 @@ public class AddTravelFragment extends Fragment {
             public void afterTextChanged(Editable s) { }
         });
 
-        // closes keyboard when pressing enter
-        InputMethodManager imm = (InputMethodManager)
-                view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        etValueInput.setOnKeyListener((v, keyCode, event) -> {
-            if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                imm.hideSoftInputFromWindow(etValueInput.getWindowToken(), 0);
-            }
-            return false;
-        });
-
         modeSelected();
         btnSubmit.setOnClickListener(v -> save());
 
@@ -105,17 +93,11 @@ public class AddTravelFragment extends Fragment {
             }
             kmList[i] = 0;
         }
-        if (values.size() != 0) {
-            values.put("time", calendar.getTimeInMillis()/1000);
-            profile.setValues(values);
-        }
-        ((MainActivity) getActivity()).setHomeFragment();
-        etValueInput.getText().clear();
-        kmList = new int[5];
+        values.put("time", calendar.getTimeInMillis()/1000);
+        profile.setValues(values);
     }
 
     private void modeSelected() {
-        // TODO useampi syöte samana päivänä
         for (int i = 0; i < ids.length; i++) {
             int finalI = i;
             toggles[i].setOnClickListener(v -> {
@@ -128,7 +110,7 @@ public class AddTravelFragment extends Fragment {
                 }
                 btnIndex = finalI;
 
-                // highlights selected mode
+                // visual highlights selected mode
                 for (int j = 0; j < toggles.length; j++) {
                     if (finalI == j) {
                         toggles[j].getForeground().setAlpha(255);
