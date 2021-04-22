@@ -141,7 +141,9 @@ public class ChartsFragment extends Fragment {
                     .append(calendar.get(Calendar.MONTH)).append(",")
                     .append(calendar.get(Calendar.DAY_OF_MONTH)).append("),");
             if (dayData.containsKey(day)) {
-                for (int d : dayData.get(day)) {
+                for (int k = 0; k < dayData.get(day).length; k++) {
+                    int d = dayData.get(day)[k];
+                    kmList[k] += d; //TODO gets wrong kilometers
                     if (d > maxY) maxY = d;
                     dataTable.append(d);
                     dataTable.append(",");
