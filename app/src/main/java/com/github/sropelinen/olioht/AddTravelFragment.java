@@ -1,9 +1,7 @@
 package com.github.sropelinen.olioht;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
@@ -13,14 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
-import android.widget.ToggleButton;
 
-import java.net.Inet4Address;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 public class AddTravelFragment extends Fragment {
@@ -95,6 +88,7 @@ public class AddTravelFragment extends Fragment {
         return view;
     }
 
+    // ToDo/TeeTää Ei sule viel oikein
     private void save() {
         kmList[btnIndex] = km;
         for (int k = 0; k < 5; k++) {
