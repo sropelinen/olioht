@@ -29,6 +29,7 @@ public class ChartsFragment extends Fragment {
     };
     private TextView[] textViews = new TextView[ids.length];
     private int[] kmList = new int[ids.length];
+
     public ChartsFragment(Profile profile) {
         this.profile = profile;
     }

@@ -1,5 +1,6 @@
 package com.github.sropelinen.olioht;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,12 +10,14 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class AddTravelFragment extends Fragment {
     private View view;
@@ -88,7 +91,6 @@ public class AddTravelFragment extends Fragment {
         return view;
     }
 
-    // ToDo/TeeTää Ei sule viel oikein
     private void save() {
         kmList[btnIndex] = km;
         for (int k = 0; k < 5; k++) {
@@ -107,6 +109,13 @@ public class AddTravelFragment extends Fragment {
             values.put("weight", weight);
         }
         profile.setValues(values);
+        // closes keyboard
+        InputMethodManager methodManager = (InputMethodManager)
+                getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        methodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
+        // return to home fragment
+        ((MainActivity) Objects.requireNonNull(getActivity())).setHomeFragment();
     }
 
     private void modeSelected() {

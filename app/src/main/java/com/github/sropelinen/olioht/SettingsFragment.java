@@ -10,7 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
+
+import java.util.Objects;
 
 public class SettingsFragment extends Fragment {
     private View view;
@@ -20,6 +23,7 @@ public class SettingsFragment extends Fragment {
     private SettingsViewModel viewModel;
     private SwitchCompat switchDarkMode;
     private TextView tvEditProfile;
+    private ScrollView scrollView;
 
     public SettingsFragment(Profile profile) {
         this.profile = profile;
@@ -29,10 +33,12 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_settings, container, false);
+        viewModel = new ViewModelProvider(
+                Objects.requireNonNull(getActivity())).get(SettingsViewModel.class);
+        scrollView = view.findViewById(R.id.scroll_view_log);
 
         showLog = view.findViewById(R.id.showLog);
         showLog.setOnClickListener(v -> toggleLog());
-        viewModel = new ViewModelProvider(getActivity()).get(SettingsViewModel.class);
 
         tvUsername = view.findViewById(R.id.tv_name);
         tvUsername.setText(profile.getValue("userName").toString());
@@ -46,9 +52,9 @@ public class SettingsFragment extends Fragment {
     }
 
     private void toggleLog() {
-        // ToDo kunnol tää
         if (showLog.getText().toString().equals("View log")) {
             showLog.setText(profile.getLog());
+            scrollView.post(() -> scrollView.fullScroll(View.FOCUS_DOWN));
         } else {
             showLog.setText("View log");
         }

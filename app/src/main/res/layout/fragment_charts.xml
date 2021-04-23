@@ -12,12 +12,15 @@
         >
 
         <TextView
-            android:layout_width="match_parent"
+            android:background="@drawable/boarder"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:text="View your stats here!"
             android:textSize="13pt"
             android:gravity="center"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="32dp"/>
 
         <Spinner
             android:id="@+id/spinner_timeline"
@@ -30,6 +33,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:background="@drawable/boarder"
+            android:textColor="@color/black"
             android:text="Estimated CO2 emission (CO2eq)" />
 
         <WebView
@@ -41,6 +46,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/boarder"
+            android:textColor="@color/black"
             android:layout_marginTop="16dp"
             android:text="Weight (kg)" />
 
@@ -52,6 +59,8 @@
 
         <TextView
             android:layout_width="match_parent"
+            android:textColor="@color/black"
+            android:background="@drawable/boarder"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Distance travelled (km)" />
@@ -64,6 +73,8 @@
 
         <TextView
             android:id="@+id/tv_km_walk"
+            android:background="@drawable/boarder_colorless"
+            android:textColor="@color/black"
             android:layout_marginTop="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,24 +82,32 @@
 
         <TextView
             android:id="@+id/tv_km_bike"
+            android:background="@drawable/boarder_colorless"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kilometres travelled by bike:"/>
 
         <TextView
             android:id="@+id/tv_km_train"
+            android:background="@drawable/boarder_colorless"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kilometres travelled by train:"/>
 
         <TextView
             android:id="@+id/tv_km_bus"
+            android:background="@drawable/boarder_colorless"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kilometres travelled by bus:"/>
 
         <TextView
             android:id="@+id/tv_km_car"
+            android:background="@drawable/boarder_colorless"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kilometres travelled by car:"/>

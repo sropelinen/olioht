@@ -33,6 +33,8 @@ public class EstimateParser {
     private final String carApiUrl = "https://ilmastodieetti.ymparisto.fi/ilmastodieetti/calculatorapi/v1/TransportCalculator/CarEstimate?query.buildYear=%d&query.driveDistance=%d&query.size=%s&query.passengerCount=%d";
     private final String publicTransportApiUrl = "https://ilmastodieetti.ymparisto.fi/ilmastodieetti/calculatorapi/v1/TransportCalculator/PublicTransportEstimate?longDistanceBusYear=%d&longDistanceTrainYear=%d&cityBusWeek=%d&cityTrainWeek=%d";
 
+
+    // TODO to settings?
     private final int buildYear = 2000, passengers = 1;
     private final String size = "smallFamily";
 

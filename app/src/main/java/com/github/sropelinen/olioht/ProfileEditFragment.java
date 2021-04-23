@@ -19,8 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
-
-// ToDo birth date
+import java.util.Objects;
 
 public class ProfileEditFragment extends Fragment {
     private View view;
@@ -137,7 +136,8 @@ public class ProfileEditFragment extends Fragment {
         });
 
         // return
-        btnGoBack.setOnClickListener(v -> ((MainActivity) getActivity()).setSettingsFragment());
+        btnGoBack.setOnClickListener(v -> ((MainActivity)
+                Objects.requireNonNull(getActivity())).setSettingsFragment());
     }
 
     @Override

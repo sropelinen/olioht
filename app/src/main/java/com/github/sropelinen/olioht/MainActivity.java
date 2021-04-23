@@ -95,6 +95,14 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setTitle("Settings");
     }
 
+    public void setHomeFragment() {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.frame_main, homeFragment);
+        transaction.commit();
+        actionBar.setTitle("Home");
+    }
+
     private void setFragment() {
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();

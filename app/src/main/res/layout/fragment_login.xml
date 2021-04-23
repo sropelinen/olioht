@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:padding="16dp"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/errorMessage"
@@ -14,8 +13,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
         android:gravity="center"
-        android:textSize="16sp"
         android:textColor="@color/red"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
@@ -29,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/boarder_colorless"
         android:gravity="center"
         android:hint="Password"
         android:inputType="textPassword"
@@ -45,9 +45,10 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:background="@drawable/boarder_colorless"
+        android:onClick="returnRegister"
         android:text="register"
         android:textSize="20sp"
-        android:onClick="returnRegister"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/login"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,9 +60,10 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:background="@drawable/boarder_colorless"
+        android:onClick="login"
         android:text="login"
         android:textSize="20sp"
-        android:onClick="login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/register"
@@ -74,29 +76,28 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/boarder_colorless"
         android:gravity="center"
         android:hint="Username"
         android:inputType="text"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/editPasswordLogin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
-        android:text="Log in, please"
-        android:textSize="30sp"
+        android:background="@drawable/boarder"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/editUserNameLogin"
+        android:text="Log in"
+        android:textColor="@color/black"
+        android:textSize="13pt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintBottom_toTopOf="@id/editUserNameLogin"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

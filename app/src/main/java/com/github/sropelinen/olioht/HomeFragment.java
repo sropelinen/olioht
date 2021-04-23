@@ -17,7 +17,7 @@ public class HomeFragment extends Fragment {
     private View view;
     private Button addBtn;
     private Profile profile;
-    private TextView message;
+    private TextView message, tvCO2, tvChange;
 
 
     public HomeFragment(Profile profile) {
@@ -38,6 +38,8 @@ public class HomeFragment extends Fragment {
         addBtn.setOnClickListener(v -> ((MainActivity) getActivity()).setAddTravelFragment());
 
         message = (TextView) view.findViewById(R.id.daily_tip);
+        tvCO2 = view.findViewById(R.id.CO2_est_number);
+
 
         MessageBot bot = MessageBot.getInstance();
         bot.readMessages(getContext());

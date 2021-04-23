@@ -9,6 +9,7 @@
 
     <Button
         android:id="@+id/btn_add_pic"
+        android:background="@drawable/boarder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="add"
@@ -20,6 +21,7 @@
 
     <ImageView
         android:id="@+id/iv_profile_pic_2"
+        android:background="@drawable/boarder_colorless"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/ic_person"
@@ -30,6 +32,7 @@
 
     <TextView
         android:id="@+id/tv_name"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -40,6 +43,7 @@
 
     <TextView
         android:id="@+id/tv_dob"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -50,6 +54,7 @@
 
     <TextView
         android:id="@+id/tv_username"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -71,12 +76,14 @@
 
         <TableRow>
             <TextView
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="First name: " />
 
             <EditText
                 android:id="@+id/et_edit_firstname"
+                android:background="@drawable/boarder_colorless"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:inputType="text"/>
@@ -84,12 +91,14 @@
 
         <TableRow>
             <TextView
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Last name: " />
 
             <EditText
                 android:id="@+id/et_edit_lastname"
+                android:background="@drawable/boarder_colorless"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:inputType="text"/>
@@ -98,23 +107,27 @@
         <TableRow>
             <TextView
                 android:layout_width="wrap_content"
+                android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:text="Height: "/>
 
             <EditText
                 android:id="@+id/et_edit_height"
+                android:background="@drawable/boarder_colorless"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:inputType="number"/>
         </TableRow>
         <TableRow>
             <TextView
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Weight: " />
 
             <EditText
                 android:id="@+id/et_edit_weight"
+                android:background="@drawable/boarder_colorless"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:inputType="number"/>
@@ -122,12 +135,14 @@
 
         <TableRow>
             <TextView
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hometown: " />
 
             <EditText
                 android:id="@+id/et_edit_home"
+                android:background="@drawable/boarder_colorless"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:inputType="text"/>
@@ -139,6 +154,7 @@
 
     <Button
         android:id="@+id/btn_save_profile"
+        android:background="@drawable/boarder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -149,6 +165,7 @@
 
     <Button
         android:id="@+id/btn_back_to_settings"
+        android:background="@drawable/boarder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
