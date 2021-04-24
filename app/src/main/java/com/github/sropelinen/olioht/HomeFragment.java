@@ -9,8 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.Objects;
 
 
 public class HomeFragment extends Fragment {
@@ -36,14 +37,19 @@ public class HomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         addBtn = view.findViewById(R.id.add_btn);
 
-        addBtn.setOnClickListener(v -> ((MainActivity) getActivity()).setAddTravelFragment());
+        addBtn.setOnClickListener(v -> ((MainActivity)
+                Objects.requireNonNull(getActivity())).setAddTravelFragment());
 
         message = (TextView) view.findViewById(R.id.daily_tip);
-        tvCO2 = view.findViewById(R.id.CO2_est_number);
+        tvCO2 = view.findViewById(R.id.tv_CO2_est_number);
+        tvChange = view.findViewById(R.id.tv_change_percent);
 
         MessageBot bot = MessageBot.getInstance();
         bot.readMessages(getContext());
         message.setText(String.format(bot.sendMessage(.1), profile.getValue("firstName")));
+        bot.readMessages(Objects.requireNonNull(getContext()));
+        message.setText(String.format(bot.sendMessage(-.1),
+                profile.getValue("firstName")));
 
         return view;
     }

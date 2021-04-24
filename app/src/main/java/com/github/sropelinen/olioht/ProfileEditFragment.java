@@ -67,8 +67,8 @@ public class ProfileEditFragment extends Fragment {
         tvDob = view.findViewById(R.id.tv_dob);
         tvUsername = view.findViewById(R.id.tv_username);
         imageView = view.findViewById(R.id.iv_profile_pic);
-        imageView2 = view.findViewById(R.id.iv_profile_pic_2);
-        imageView3 = view.findViewById(R.id.iv_profile_pic_settings);
+//        imageView2 = view.findViewById(R.id.iv_profile_pic_2);
+//        imageView3 = view.findViewById(R.id.iv_profile_pic_settings);
 
         String name = profile.getValue("firstName").toString() + " " +
                 profile.getValue("lastName").toString();
@@ -158,8 +158,8 @@ public class ProfileEditFragment extends Fragment {
             if (extras != null) {
                 Bitmap pic = extras.getParcelable("data");
                 imageView.setImageBitmap(pic);
-                imageView2.setImageBitmap(pic);
-                imageView3.setImageBitmap(pic);
+//                imageView2.setImageBitmap(pic);
+//                imageView3.setImageBitmap(pic);
                 // TODO save profile pic to profile (not important)
             }
         }

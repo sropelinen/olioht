@@ -17,7 +17,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment profileEditFragment = null;
     private Fragment addTravelFragment = null;
     private ActionBar actionBar;
-    private ImageView profilePic;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +42,21 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar_main);
         drawerLayout = findViewById(R.id.drawer_layout_main);
         navigationView = findViewById(R.id.navigationView);
-        profilePic = findViewById(R.id.iv_profile_pic);
-
+        View header = navigationView.getHeaderView(0);
         Profile profile = Profile.getInstance();
+
         homeFragment = new HomeFragment(profile);
         settingsFragment = new SettingsFragment(profile);
         chartsFragment = new ChartsFragment(profile);
         profileEditFragment = new ProfileEditFragment(profile);
         addTravelFragment = new AddTravelFragment(profile);
+
+        // set profile values to side menu
+        TextView tvUsername = header.findViewById(R.id.tv_nav_username);
+        TextView tvName = header.findViewById(R.id.tv_nav_name);
+        tvUsername.setText(profile.getValue("userName").toString());
+        tvName.setText(String.format("%s %s", profile.getValue("firstName").toString(),
+                profile.getValue("lastName").toString()));
 
         //set home fragment on launch
         FragmentManager manager = getSupportFragmentManager();

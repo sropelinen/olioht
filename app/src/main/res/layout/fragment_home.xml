@@ -29,7 +29,7 @@
         app:layout_constraintBottom_toTopOf="@id/add_btn">
             <TextView
                 android:layout_gravity="center"
-                android:id="@+id/CO2_est_number"
+                android:id="@+id/tv_CO2_est_number"
                 android:textColor="@color/black"
                 android:gravity="center_horizontal"
                 android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
 
 
             <TextView
-                android:id="@+id/change_percent"
+                android:id="@+id/tv_change_percent"
                 android:layout_marginTop="32dp"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/black"

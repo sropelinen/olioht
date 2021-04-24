@@ -5,12 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical|left"
-    android:paddingLeft="16dp"
-    tools:context=".MainActivity">
+    android:paddingHorizontal="16dp"
+    android:id="@+id/header_title"
+    >
 
     <ImageView
-        android:clickable="true"
-        android:focusable="true"
         android:id="@+id/iv_profile_pic"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -18,9 +17,19 @@
         />
 
     <TextView
+        android:id="@+id/tv_nav_name"
+        android:layout_marginTop="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Profile"/>
+        android:text="name"/>
+
+    <TextView
+        android:id="@+id/tv_nav_username"
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:text="username"
+        android:layout_height="wrap_content" />
+
 
 
 </LinearLayout>

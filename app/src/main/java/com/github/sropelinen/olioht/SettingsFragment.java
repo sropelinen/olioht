@@ -21,7 +21,6 @@ public class SettingsFragment extends Fragment {
     private TextView tvUsername;
     private final Profile profile;
     private SettingsViewModel viewModel;
-    private SwitchCompat switchDarkMode;
     private TextView tvEditProfile;
     private ScrollView scrollView;
 
@@ -46,8 +45,6 @@ public class SettingsFragment extends Fragment {
         tvEditProfile = view.findViewById(R.id.tv_edit_profile);
         tvEditProfile.setOnClickListener(v -> ((MainActivity) getActivity()).setProfileEditFragment());
 
-        switchDarkMode = view.findViewById(R.id.switch_dark_mode);
-        switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> viewModel.setDarkMode(isChecked));
         return view;
     }
 
