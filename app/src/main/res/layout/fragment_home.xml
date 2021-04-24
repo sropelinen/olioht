@@ -35,10 +35,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/boarder_colorless"
-                android:text="10"
-                android:textSize="30pt" />
+                android:textSize="20pt" />
             <TextView
                 android:id="@+id/CO2_est_text"
+                android:layout_marginTop="8dp"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/black"
                 android:background="@drawable/boarder"
@@ -56,13 +56,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/boarder_colorless"
-                android:text="10 %"
                 android:textSize="30pt"
                 app:layout_constraintTop_toBottomOf="@+id/daily_tip"
                 tools:layout_editor_absoluteX="294dp" />
 
             <TextView
                 android:id="@+id/tv_username"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/boarder"
                 android:textColor="@color/black"
                 android:layout_gravity="center_horizontal"
