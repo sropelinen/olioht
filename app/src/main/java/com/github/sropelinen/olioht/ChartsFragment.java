@@ -98,4 +98,11 @@ public class ChartsFragment extends Fragment {
         else if (position == 2) days = 365;
         return days;
     }
+
+    // set spinner to weekly on resume
+    @Override
+    public void onResume() {
+        super.onResume();
+        spinner.setSelection(0);
+    }
 }

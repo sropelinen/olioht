@@ -67,8 +67,8 @@ public class ProfileEditFragment extends Fragment {
         tvDob = view.findViewById(R.id.tv_dob);
         tvUsername = view.findViewById(R.id.tv_username);
         imageView = view.findViewById(R.id.iv_profile_pic);
-//        imageView2 = view.findViewById(R.id.iv_profile_pic_2);
-//        imageView3 = view.findViewById(R.id.iv_profile_pic_settings);
+        imageView2 = view.findViewById(R.id.iv_profile_pic_2);
+        imageView3 = view.findViewById(R.id.iv_profile_pic_settings);
 
         String name = profile.getValue("firstName").toString() + " " +
                 profile.getValue("lastName").toString();
@@ -95,11 +95,9 @@ public class ProfileEditFragment extends Fragment {
                         }
                     }
                 }
-
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 }
-
                 @Override
                 public void afterTextChanged(Editable s) {
                 }
@@ -122,7 +120,7 @@ public class ProfileEditFragment extends Fragment {
             }
         });
 
-        // set profile pic
+        // set profile pic NOT WORKING
         btnAddPic.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             intent.putExtra("crop", "true");
@@ -149,6 +147,7 @@ public class ProfileEditFragment extends Fragment {
         }
     }
 
+    // set profile pic NOT WORKING
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

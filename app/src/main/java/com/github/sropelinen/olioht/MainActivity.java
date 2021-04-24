@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment profileEditFragment = null;
     private Fragment addTravelFragment = null;
     private ActionBar actionBar;
+    private Profile profile;
 
 
     @Override
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout_main);
         navigationView = findViewById(R.id.navigationView);
         View header = navigationView.getHeaderView(0);
-        Profile profile = Profile.getInstance();
+        profile = Profile.getInstance();
 
         homeFragment = new HomeFragment(profile);
         settingsFragment = new SettingsFragment(profile);
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
     public void setAddTravelFragment() {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frame_main, addTravelFragment);
+        transaction.replace(R.id.frame_main, new AddTravelFragment(profile));
         transaction.commit();
         actionBar.setTitle("New travel");
     }

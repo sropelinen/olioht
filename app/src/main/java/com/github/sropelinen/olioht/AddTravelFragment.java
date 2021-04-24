@@ -33,6 +33,8 @@ public class AddTravelFragment extends Fragment {
     private int btnIndex = 0;
     private int[] kmList = new int[5];
     private int km = 0, weight = 0;
+    private boolean isPressed = false;
+    private boolean isEntered = false;
 
     public AddTravelFragment(Profile profile) {
         this.profile = profile;
@@ -65,6 +67,7 @@ public class AddTravelFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!s.toString().equals("")) {
                     km = Integer.parseInt(s.toString());
+                    isEntered = true;
                 }
             }
             @Override
@@ -72,6 +75,7 @@ public class AddTravelFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) { }
         });
+
         etWeightInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -92,36 +96,36 @@ public class AddTravelFragment extends Fragment {
     }
 
     private void save() {
-        kmList[btnIndex] = km;
-        for (int k = 0; k < 5; k++) {
-            System.out.println(kmList[k]);
-        }
-
-        HashMap<String, Object> values = new HashMap<>();
-        for (int i = 0; i < kmList.length; i++) {
-            if (kmList[i] != 0) {
-                values.put(keys[i], kmList[i]);
+        if (isPressed && isEntered) {
+            kmList[btnIndex] = km;
+            HashMap<String, Object> values = new HashMap<>();
+            for (int i = 0; i < kmList.length; i++) {
+                if (kmList[i] != 0) {
+                    values.put(keys[i], kmList[i]);
+                }
+                kmList[i] = 0;
             }
-            kmList[i] = 0;
+            System.out.println(String.format("%d %%" ));
+            values.put("time", calendar.getTimeInMillis() / 1000);
+            if (weight != 0) {
+                values.put("weight", weight);
+            }
+            profile.setValues(values);
+            // closes keyboard
+            InputMethodManager methodManager = (InputMethodManager)
+                    getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            methodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+            // return to home fragment
+            ((MainActivity) Objects.requireNonNull(getActivity())).setHomeFragment();
         }
-        values.put("time", calendar.getTimeInMillis()/1000);
-        if (weight != 0) {
-            values.put("weight", weight);
-        }
-        profile.setValues(values);
-        // closes keyboard
-        InputMethodManager methodManager = (InputMethodManager)
-                getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        methodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
-                InputMethodManager.HIDE_NOT_ALWAYS);
-        // return to home fragment
-        ((MainActivity) Objects.requireNonNull(getActivity())).setHomeFragment();
     }
 
     private void modeSelected() {
         for (int i = 0; i < ids.length; i++) {
             int finalI = i;
             toggles[i].setOnClickListener(v -> {
+                isPressed = true;
                 kmList[btnIndex] = km;
                 km = kmList[finalI];
                 if (kmList[finalI] == 0) {
