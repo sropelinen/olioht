@@ -105,7 +105,6 @@ public class AddTravelFragment extends Fragment {
                 }
                 kmList[i] = 0;
             }
-            System.out.println(String.format("%d %%" ));
             values.put("time", calendar.getTimeInMillis() / 1000);
             if (weight != 0) {
                 values.put("weight", weight);
