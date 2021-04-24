@@ -2,19 +2,16 @@ package com.github.sropelinen.olioht;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.HashMap;
 
-// TODO Loput toiminnallisuudet
-
 public class LoginActivity extends AppCompatActivity {
 
-    private LoginFragment loginFragment = new LoginFragment();
-    private RegisterFragment registerFragment = new RegisterFragment();
+    private final LoginFragment loginFragment = new LoginFragment();
+    private final RegisterFragment registerFragment = new RegisterFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +21,6 @@ public class LoginActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameFragmentContainer,
                     loginFragment).commit();
         }
-
-//        AccountManager am = AccountManager.getManager(this);
-//        am.login("testikayttaja", "salasana1", null);
     }
 
     public void returnLogin(View view) {
@@ -55,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void register(View view) {
-
         UserDataChecker checker = new UserDataChecker();
         String message;
         if (!((message = checker.validateFirstName(registerFragment.getFirstName())) == null)) {

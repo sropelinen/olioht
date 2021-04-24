@@ -26,7 +26,7 @@ public class Crypto {
             hashed = Arrays.copyOf(salt, 16 + bytes.length);
             System.arraycopy(bytes, 0, hashed, 16, bytes.length);
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace(); //ToDo
+            e.printStackTrace();
         }
         return hashed;
     }
@@ -49,7 +49,7 @@ public class Crypto {
             encrypted = Arrays.copyOf(nonce, 12 + bytes.length);
             System.arraycopy(bytes, 0, encrypted, 12, bytes.length);
         } catch (Exception e) {
-            e.printStackTrace(); //ToDo
+            e.printStackTrace();
         }
         return encrypted;
     }
@@ -65,7 +65,7 @@ public class Crypto {
                     new GCMParameterSpec(128, nonce));
             decrypted = new String(cipher.doFinal(encrypted));
         } catch (Exception e) {
-            e.printStackTrace(); //ToDo
+            e.printStackTrace();
         }
         return decrypted;
     }
