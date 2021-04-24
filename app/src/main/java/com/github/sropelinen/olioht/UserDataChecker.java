@@ -2,7 +2,6 @@ package com.github.sropelinen.olioht;
 
 public class UserDataChecker {
 
-    // ToDo Tekstit pitää olla strings.xml tiedostossa
     public String validateUserName(String userName) {
         if (userName.isEmpty()) {
             return "Add username!";

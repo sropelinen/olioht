@@ -160,7 +160,6 @@ public class ProfileEditFragment extends Fragment {
                 imageView.setImageBitmap(pic);
 //                imageView2.setImageBitmap(pic);
 //                imageView3.setImageBitmap(pic);
-                // TODO save profile pic to profile (not important)
             }
         }
     }

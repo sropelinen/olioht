@@ -5,11 +5,6 @@ import android.os.Handler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,11 +15,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.Locale;
-import java.util.Scanner;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 public class EstimateParser {
 
@@ -33,8 +24,6 @@ public class EstimateParser {
     private final String carApiUrl = "https://ilmastodieetti.ymparisto.fi/ilmastodieetti/calculatorapi/v1/TransportCalculator/CarEstimate?query.buildYear=%d&query.driveDistance=%d&query.size=%s&query.passengerCount=%d";
     private final String publicTransportApiUrl = "https://ilmastodieetti.ymparisto.fi/ilmastodieetti/calculatorapi/v1/TransportCalculator/PublicTransportEstimate?longDistanceBusYear=%d&longDistanceTrainYear=%d&cityBusWeek=%d&cityTrainWeek=%d";
 
-
-    // TODO to settings?
     private final int buildYear = 2000, passengers = 1;
     private final String size = "smallFamily";
 
@@ -118,6 +107,7 @@ public class EstimateParser {
         }
         return response;
     }
+
 
     public static abstract class Callback implements Runnable {
         public double carEstimate = 0;
