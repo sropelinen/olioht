@@ -30,7 +30,6 @@ public class MessageBot{
             while ((s = br.readLine()) != null) {
                 messages.add(s);
             }
-            System.out.println("File read successfully");
             br.close();
         } catch (IOException e) {
             Log.e("IOException", "Virhe syötteessä");

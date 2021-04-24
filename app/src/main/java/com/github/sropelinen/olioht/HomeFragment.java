@@ -57,10 +57,16 @@ public class HomeFragment extends Fragment {
         utils.getEmission(profile.getChartData(), -7, 7, new ChartUtils.Callback() {
             @Override
             public void run() {
-                int CO2Change = (int) ((1 - CO2Estimate[0]/(double)returnValue) * 100);
-                tvChange.setText(String.format("%d", CO2Change) + "%");
-                message.setText(String.format(bot.sendMessage(CO2Change),
-                        profile.getValue("firstName")));
+                if ( (double) returnValue == 0 || CO2Estimate[0] == 0) {
+                    tvChange.setText("No data");
+                    message.setText("I wish I had some data to calculate... add by clicking ADD");
+                }
+                else {
+                    int CO2Change = (int) ((CO2Estimate[0] / (double) returnValue - 1) * 100);
+                    tvChange.setText(String.format("%d", CO2Change) + "%");
+                    message.setText(String.format(bot.sendMessage(CO2Change),
+                            profile.getValue("firstName")));
+                }
             }
         });
         return view;
