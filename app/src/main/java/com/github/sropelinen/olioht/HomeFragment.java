@@ -19,8 +19,6 @@ public class HomeFragment extends Fragment {
     private Button addBtn;
     private Profile profile;
     private TextView message, tvCO2, tvChange;
-    private double changeInWeek;
-    private double CO2Estimate;
 
     public HomeFragment(Profile profile) {
         this.profile = profile;
@@ -45,12 +43,26 @@ public class HomeFragment extends Fragment {
         tvChange = view.findViewById(R.id.tv_change_percent);
 
         MessageBot bot = MessageBot.getInstance();
-        bot.readMessages(getContext());
-        message.setText(String.format(bot.sendMessage(.1), profile.getValue("firstName")));
         bot.readMessages(Objects.requireNonNull(getContext()));
-        message.setText(String.format(bot.sendMessage(-.1),
-                profile.getValue("firstName")));
 
+        ChartUtils utils = new ChartUtils();
+        final double[] CO2Estimate = new double[1];
+        utils.getEmission(profile.getChartData(), 0, 7, new ChartUtils.Callback() {
+            @Override
+            public void run() {
+                CO2Estimate[0] = (double) returnValue;
+                tvCO2.setText(String.format("%.2f CO2eq", CO2Estimate[0]));
+            }
+        });
+        utils.getEmission(profile.getChartData(), -7, 7, new ChartUtils.Callback() {
+            @Override
+            public void run() {
+                int CO2Change = (int) ((1 - CO2Estimate[0]/(double)returnValue) * 100);
+                tvChange.setText(String.format("%d", CO2Change) + "%");
+                message.setText(String.format(bot.sendMessage(CO2Change),
+                        profile.getValue("firstName")));
+            }
+        });
         return view;
     }
 }
