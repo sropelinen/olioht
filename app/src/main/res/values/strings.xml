@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ht_frags</string>
+    <string name="app_name">CoolCoalCalc</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     // toolbar
     <string name="open_drawer_text">open drawer</string>

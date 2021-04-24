@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Locale;
 import java.util.Objects;
 
 
@@ -51,24 +52,25 @@ public class HomeFragment extends Fragment {
             @Override
             public void run() {
                 CO2Estimate[0] = (double) returnValue;
-                tvCO2.setText(String.format("%.2f CO2eq", CO2Estimate[0]));
+                tvCO2.setText(String.format(Locale.ENGLISH,"%.2f CO2eq", CO2Estimate[0]));
+                utils.getEmission(profile.getChartData(), -7, 7, new ChartUtils.Callback() {
+                    @Override
+                    public void run() {
+                        if ((double) returnValue == 0 || CO2Estimate[0] == 0) {
+                            tvChange.setText("No data");
+                            message.setText("I wish I had some data to calculate... add by clicking ADD");
+                        }
+                        else {
+                            int CO2Change = (int) ((CO2Estimate[0] / (double) returnValue - 1) * 100);
+                            tvChange.setText(String.format(Locale.ENGLISH, "%d", CO2Change) + "%");
+                            message.setText(String.format(bot.sendMessage(CO2Change),
+                                    profile.getValue("firstName")));
+                        }
+                    }
+                });
             }
         });
-        utils.getEmission(profile.getChartData(), -7, 7, new ChartUtils.Callback() {
-            @Override
-            public void run() {
-                if ( (double) returnValue == 0 || CO2Estimate[0] == 0) {
-                    tvChange.setText("No data");
-                    message.setText("I wish I had some data to calculate... add by clicking ADD");
-                }
-                else {
-                    int CO2Change = (int) ((CO2Estimate[0] / (double) returnValue - 1) * 100);
-                    tvChange.setText(String.format("%d", CO2Change) + "%");
-                    message.setText(String.format(bot.sendMessage(CO2Change),
-                            profile.getValue("firstName")));
-                }
-            }
-        });
+
         return view;
     }
 }

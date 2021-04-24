@@ -15,7 +15,7 @@ public class User {
 
     @ColumnInfo(name = "password", typeAffinity = ColumnInfo.BLOB)
     @NonNull
-    private byte[] password;
+    private final byte[] password;
 
     @ColumnInfo(name = "data", typeAffinity = ColumnInfo.BLOB)
     private byte[] data;

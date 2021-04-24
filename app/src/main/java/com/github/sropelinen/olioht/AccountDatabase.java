@@ -16,7 +16,7 @@ public abstract class AccountDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                     AccountDatabase.class, "accounts")
-                    .setJournalMode(JournalMode.TRUNCATE) // TEMP
+                    .setJournalMode(JournalMode.TRUNCATE)
                     .build();
         }
         return INSTANCE;
