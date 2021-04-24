@@ -18,7 +18,8 @@ public class HomeFragment extends Fragment {
     private Button addBtn;
     private Profile profile;
     private TextView message, tvCO2, tvChange;
-
+    private double changeInWeek;
+    private double CO2Estimate;
 
     public HomeFragment(Profile profile) {
         this.profile = profile;
@@ -40,10 +41,9 @@ public class HomeFragment extends Fragment {
         message = (TextView) view.findViewById(R.id.daily_tip);
         tvCO2 = view.findViewById(R.id.CO2_est_number);
 
-
         MessageBot bot = MessageBot.getInstance();
         bot.readMessages(getContext());
-        message.setText(String.format(bot.sentMessage(-.1, false), profile.getValue("firstName")));
+        message.setText(String.format(bot.sendMessage(.1), profile.getValue("firstName")));
 
         return view;
     }

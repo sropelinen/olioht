@@ -13,7 +13,7 @@ public class MessageBot{
 
     private static final MessageBot INSTANCE = new MessageBot();
     private ArrayList<String> messages = new ArrayList<>();
-    private String greeting, goodJob, badJob;
+    private String goodJob, badJob, okJob;
 
     public static MessageBot getInstance() {
         return INSTANCE;
@@ -25,6 +25,7 @@ public class MessageBot{
                     context.getAssets().open("messages.txt")));
             String s;
             goodJob = br.readLine();
+            okJob = br.readLine();
             badJob = br.readLine();
             while ((s = br.readLine()) != null) {
                 messages.add(s);
@@ -35,17 +36,15 @@ public class MessageBot{
             Log.e("IOException", "Virhe syötteessä");
         }
     }
-    public String sentMessage(double changeInWeek, boolean isNewUser) {
-        if (isNewUser) return greeting;
+    public String sendMessage(double changeInWeek) {
+        int num = (int) (Math.random() * 2 - 0.00001) ;
+        if (num == 1) {
+            if ( changeInWeek < 0) return goodJob;
+            else if (changeInWeek > 0) return badJob;
+            else return okJob;
+        }
         else {
-            int num = (int) (Math.random() * 2 - 0.001) ;
-            if (num == 1) {
-                if ( changeInWeek < 0) return goodJob;
-                else return badJob;
-            }
-            else {
-                return messages.get((int) (Math.random() * messages.size() - .001));
-            }
+            return messages.get((int) (Math.random() * messages.size() - .001));
         }
     }
 }
