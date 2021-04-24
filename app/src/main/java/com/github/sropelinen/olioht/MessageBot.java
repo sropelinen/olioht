@@ -36,7 +36,7 @@ public class MessageBot{
             Log.e("IOException", "Virhe syötteessä");
         }
     }
-    public String sendMessage(double changeInWeek) {
+    public String sendMessage(int changeInWeek) {
         int num = (int) (Math.random() * 2 - 0.00001) ;
         if (num == 1) {
             if ( changeInWeek < 0) return goodJob;
