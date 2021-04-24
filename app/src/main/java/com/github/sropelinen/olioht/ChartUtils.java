@@ -65,9 +65,12 @@ public class ChartUtils {
         estimateParser.getTransportEstimate(finalCarDistance, finalBusDistance, finalTrainDistance, new EstimateParser.Callback() {
             @Override
             public void run() {
-                callback.returnValue = carEstimate / finalCarDistance * totalKms[4]
-                        + busEstimate / finalBusDistance * totalKms[3]
-                        + trainEstimate / finalTrainDistance * totalKms[2];
+                double estimate = 0;
+                callback.returnValue = 0.0;
+                if (finalCarDistance != 0) estimate += carEstimate / finalCarDistance * totalKms[4];
+                if (finalBusDistance != 0) estimate += busEstimate / finalBusDistance * totalKms[3];
+                if (finalTrainDistance != 0) estimate += trainEstimate / finalTrainDistance * totalKms[2];
+                callback.returnValue = estimate;
                 handler.post(callback);
             }
         });
@@ -185,9 +188,9 @@ public class ChartUtils {
             @Override
             public void run() {
                 HashMap<String, Double> multipliers = new HashMap<>();
-                multipliers.put("car", carEstimate / finalCarDistance);
-                multipliers.put("bus", busEstimate / finalBusDistance);
-                multipliers.put("train", trainEstimate / finalTrainDistance);
+                multipliers.put("car", (finalCarDistance != 0) ? carEstimate / finalCarDistance : 0);
+                multipliers.put("train", (finalTrainDistance != 0) ? trainEstimate / finalTrainDistance : 0);
+                multipliers.put("bus", (finalBusDistance != 0) ? busEstimate / finalBusDistance : 0);
 
                 HashMap<Integer, Double> dayData = new HashMap<>();
                 for (String key : data.keySet()) {
