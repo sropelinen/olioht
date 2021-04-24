@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment {
         utils.getEmission(profile.getChartData(), -7, 7, new ChartUtils.Callback() {
             @Override
             public void run() {
-                int CO2Change = (int) (((CO2Estimate[0]/(double)returnValue) - 1) * 100);
+                int CO2Change = (int) ((1 - CO2Estimate[0]/(double)returnValue) * 100);
                 tvChange.setText(String.format("%d", CO2Change) + "%");
                 message.setText(String.format(bot.sendMessage(CO2Change),
                         profile.getValue("firstName")));
