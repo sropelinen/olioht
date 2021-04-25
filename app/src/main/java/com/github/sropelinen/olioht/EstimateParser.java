@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.Locale;
 
@@ -71,16 +69,12 @@ public class EstimateParser {
             InputStream in = new BufferedInputStream(conn.getInputStream());
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             StringBuilder sb = new StringBuilder();
-            String line = null;
+            String line;
             while ((line = br.readLine()) != null) {
                 sb.append(line).append("\n");
             }
             response = sb.toString();
             in.close();
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -97,23 +91,19 @@ public class EstimateParser {
             InputStream in = new BufferedInputStream(conn.getInputStream());
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             StringBuilder sb = new StringBuilder();
-            String line = null;
+            String line;
             while ((line = br.readLine()) != null) {
                 sb.append(line).append("\n");
             }
             response = sb.toString();
             in.close();
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return response;
     }
 
-
+    /* Custom runnable to allow returning values when returning to main thread using handler. */
     public static abstract class Callback implements Runnable {
         public double carEstimate = 0;
         public double busEstimate = 0;

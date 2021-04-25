@@ -2,14 +2,15 @@ package com.github.sropelinen.olioht;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
+
+/* Methods to access SQLite database. */
 
 @Dao
 public interface UserDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     void insert(User user);
 
     @Update

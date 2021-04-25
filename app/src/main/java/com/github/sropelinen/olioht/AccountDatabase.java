@@ -12,6 +12,7 @@ public abstract class AccountDatabase extends RoomDatabase {
     public abstract UserDao userDao();
     private static AccountDatabase INSTANCE;
 
+    /* Builds instance of the user database. */
     public static AccountDatabase getDatabase(Context context) {
         if (INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(),

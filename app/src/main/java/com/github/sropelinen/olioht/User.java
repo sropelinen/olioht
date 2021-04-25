@@ -5,6 +5,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+/* SQLite database structure.
+* "users" table has 3 columns: name, password and data.
+* Password and data are encrypted byte arrays, name is primary key. */
+
 @Entity(tableName = "users")
 public class User {
 

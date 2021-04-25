@@ -9,9 +9,12 @@ import java.util.Locale;
 
 public class ChartUtils {
 
+    /* Returns total kilometers of different travel types.
+    * Time frame is from (today + deltaDay - days) to (today + deltaDay) */
     public int[] getTotalKms(HashMap<String, HashMap<Long, Integer>> data, int deltaDay, int days) {
         data = (HashMap<String, HashMap<Long, Integer>>) data.clone();
         data.remove("weight");
+        // Change data hash map structure
         HashMap<Integer, HashMap<String, Integer>> dayData = new HashMap<>();
         for (String key : data.keySet()) {
             HashMap<Long, Integer> timeData = data.get(key);
@@ -28,13 +31,14 @@ public class ChartUtils {
         }
         if (dayData.size() == 0) return new int[0];
 
+        // Calculates time frame
         int today = (int) (System.currentTimeMillis() / (24 * 60 * 60 * 1000)) + deltaDay;
         int start = Collections.min(dayData.keySet());
         if (today - days > start) start = today - days;
 
+        // Counts total kilometers
         int[] totalKms = new int[5];
         String[] keys = new String[] {"walk", "bike", "train", "bus", "car"};
-
         for (int day = start; day <= today; day++) {
             if (dayData.containsKey(day)) {
                 for (int i = 0; i < 5; i++) {
@@ -47,7 +51,11 @@ public class ChartUtils {
         return totalKms;
     }
 
+    /* Calculates CO2 emission estimate.
+     * Time frame is from (today + deltaDay - days) to (today + deltaDay) */
     public void getEmission(HashMap<String, HashMap<Long, Integer>> data, int deltaDay, int days, Callback callback) {
+
+        // Calculates average distances
         int carDist = 0;
         for (int dist : data.get("car").values()) carDist += dist;
         int finalCarDistance = ((data.get("car").size() != 0) ? carDist / data.get("car").size() : 0);
@@ -65,8 +73,8 @@ public class ChartUtils {
         estimateParser.getTransportEstimate(finalCarDistance, finalBusDistance, finalTrainDistance, new EstimateParser.Callback() {
             @Override
             public void run() {
+                // Calculates estimate
                 double estimate = 0;
-                callback.returnValue = 0.0;
                 if (finalCarDistance != 0) estimate += carEstimate / finalCarDistance * totalKms[4];
                 if (finalBusDistance != 0) estimate += busEstimate / finalBusDistance * totalKms[3];
                 if (finalTrainDistance != 0) estimate += trainEstimate / finalTrainDistance * totalKms[2];
@@ -76,17 +84,20 @@ public class ChartUtils {
         });
     }
 
+    /* Returns JavaScript command to add data to WebView chart. */
     public String getKmJSCommand(HashMap<String, HashMap<Long, Integer>> data, int days) {
 
         data = (HashMap<String, HashMap<Long, Integer>>) data.clone();
         data.remove("weight");
 
+        // JavaScript table headers
         StringBuilder headers = new StringBuilder();
         for (String h : data.keySet()) {
             headers.append("\"").append(h).append("\",");
         }
         headers.deleteCharAt(headers.length() - 1);
 
+        // Changes data hash map structure
         HashMap<Integer, int[]> dayData = new HashMap<>();
         int i = 0;
         for (HashMap<Long, Integer> timeData : data.values()) {
@@ -104,10 +115,14 @@ public class ChartUtils {
         int amount = 0;
         StringBuilder dataTable = new StringBuilder();
         Calendar calendar = Calendar.getInstance();
-        int today = (int) (System.currentTimeMillis() / (24 * 60 * 60 * 1000));
         int maxY = 0;
+
+        // Calculates time frame
+        int today = (int) (System.currentTimeMillis() / (24 * 60 * 60 * 1000));
         int start = Collections.min(dayData.keySet());
         if (today - days > start) start = today - days;
+
+        // Creates table from day data
         for (int day = start; day <= today; day++) {
             amount++;
             calendar.setTimeInMillis((long) day * 24 * 60 * 60 * 1000);
@@ -134,22 +149,28 @@ public class ChartUtils {
                 amount, headers.toString(), dataTable.toString(), (int) (maxY * 1.5));
     }
 
+    /* Returns JavaScript command to add data to WebView chart. */
     public String getWeightJSCommand(HashMap<String, HashMap<Long, Integer>> data, int days) {
 
+        // Changes data hash map structure
         HashMap<Integer, Integer> dayData = new HashMap<>();
         for (Long time : data.get("weight").keySet()) {
             int day = (int) (time / (24 * 60 * 60));
             dayData.put(day, data.get("weight").get(time));
         }
-        int today = (int) (System.currentTimeMillis() / (24 * 60 * 60 * 1000));
-        dayData.put(today, data.get("weight").get(Collections.max(data.get("weight").keySet())));
 
         int amount = 0;
         StringBuilder dataTable = new StringBuilder();
         Calendar calendar = Calendar.getInstance();
 
+        // Calculates time frame
         int start = Collections.min(dayData.keySet());
+        int today = (int) (System.currentTimeMillis() / (24 * 60 * 60 * 1000));
         if (today - days > start) start = today - days;
+
+        dayData.put(today, data.get("weight").get(Collections.max(data.get("weight").keySet())));
+
+        // Creates table from day data
         for (int day = start; day <= today; day++) {
             amount++;
             calendar.setTimeInMillis((long) day * 24 * 60 * 60 * 1000);
@@ -169,8 +190,10 @@ public class ChartUtils {
                 amount, dataTable.toString(), maxY);
     }
 
+    /* Returns JavaScript command to add data to WebView chart. */
     public void getEmissionJSCommand(HashMap<String, HashMap<Long, Integer>> data, int days, Callback callback) {
 
+        // Calculates average distances
         int carDist = 0;
         for (int dist : data.get("car").values()) carDist += dist;
         int finalCarDistance = ((data.get("car").size() != 0) ? carDist / data.get("car").size() : 0);
@@ -192,6 +215,7 @@ public class ChartUtils {
                 multipliers.put("train", (finalTrainDistance != 0) ? trainEstimate / finalTrainDistance : 0);
                 multipliers.put("bus", (finalBusDistance != 0) ? busEstimate / finalBusDistance : 0);
 
+                // Changes data hash map structure and calculates emissions
                 HashMap<Integer, Double> dayData = new HashMap<>();
                 for (String key : data.keySet()) {
                     if (multipliers.containsKey(key)) {
@@ -210,9 +234,13 @@ public class ChartUtils {
                 int amount = 0;
                 StringBuilder dataTable = new StringBuilder();
                 Calendar calendar = Calendar.getInstance();
+
+                // Calculates time frame
                 int today = (int) (System.currentTimeMillis() / (24 * 60 * 60 * 1000));
                 int start = Collections.min(dayData.keySet());
                 if (today - days > start) start = today - days;
+
+                // Creates table from day data
                 for (int day = start; day <= today; day++) {
                     amount++;
                     calendar.setTimeInMillis((long) day * 24 * 60 * 60 * 1000);
@@ -238,6 +266,7 @@ public class ChartUtils {
         });
     }
 
+    /* Custom runnable to allow returning value when returning to main thread using handler. */
     public static abstract class Callback implements Runnable {
         public Object returnValue = null;
     }

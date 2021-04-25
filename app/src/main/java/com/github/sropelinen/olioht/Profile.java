@@ -18,22 +18,26 @@ public class Profile {
     private Runnable saver;
 
     private JSONObject json;
-    private HashMap<String, Object> values;
-    private HashMap<String, HashMap<Long, Integer>> chartData;
+    private HashMap<String, Object> values; // {key: value}
+    private HashMap<String, HashMap<Long, Integer>> chartData; // {key: {time: value}}
 
+    /* Main activity accesses already created singleton instance. */
     public static Profile getInstance() {
         return INSTANCE;
     }
 
+    /* Login activity initializes singleton instance. */
     public static Profile init(String data) {
         INSTANCE.setData(data);
         return INSTANCE;
     }
 
+    /* Updates user database without AccountManager instance in Profile. */
     public void setSaver(Runnable saver) {
         this.saver = saver;
     }
 
+    /* Loads profile information to values and chartData from json string. */
     private void setData(String data) {
         values = new HashMap<>();
         for (String key : infoKeys) {
@@ -54,6 +58,7 @@ public class Profile {
                     if (infoKeys.contains(key)) {
                         values.put(key, dataPoint.get(key));
                     } else if (chartKeys.contains(key)) {
+                        // "time" key can override data save time in chartData
                         long t = time;
                         if (dataPoint.has("time")) {
                             t = Long.parseLong(dataPoint.get("time").toString());
@@ -98,12 +103,14 @@ public class Profile {
         return chartData;
     }
 
+    /* Updates profile information and json object and saves new information to the database. */
     public void setValues(HashMap<String, Object> newValues) {
         long time = System.currentTimeMillis() / 1000;
         for (String key : newValues.keySet()) {
             if (infoKeys.contains(key)) {
                 values.put(key, newValues.get(key));
             } else if (chartKeys.contains(key)) {
+                // "time" key can override current time in chartData
                 long t = time;
                 if (newValues.containsKey("time")) {
                     t = Long.parseLong(newValues.get("time").toString());
@@ -124,6 +131,7 @@ public class Profile {
         }
     }
 
+    /* Same as getData(), but easier to read. */
     public String getLog() {
         try {
             return json.toString(4);
