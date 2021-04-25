@@ -12,13 +12,14 @@ import java.util.ArrayList;
 public class MessageBot{
 
     private static final MessageBot INSTANCE = new MessageBot();
-    private ArrayList<String> messages = new ArrayList<>();
+    private final ArrayList<String> messages = new ArrayList<>();
     private String goodJob, badJob, okJob;
 
     public static MessageBot getInstance() {
         return INSTANCE;
     }
 
+    /* reads messages from .txt file */
     public void readMessages(Context context) {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -32,9 +33,11 @@ public class MessageBot{
             }
             br.close();
         } catch (IOException e) {
-            Log.e("IOException", "Virhe syötteessä");
+            Log.e("IOException", "IOException");
         }
     }
+
+    /* returns message by random */
     public String sendMessage(int changeInWeek) {
         int num = (int) (Math.random() * 2 - 0.00001) ;
         if (num == 1) {
