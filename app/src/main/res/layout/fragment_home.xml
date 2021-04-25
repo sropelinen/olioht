@@ -24,55 +24,59 @@
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/boarder_colorless"
         android:orientation="vertical"
-        android:layout_marginBottom="64dp"
-        app:layout_constraintBottom_toTopOf="@id/add_btn">
-            <TextView
-                android:layout_gravity="center"
-                android:id="@+id/tv_CO2_est_number"
-                android:textColor="@color/black"
-                android:gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/boarder_colorless"
-                android:textSize="20pt" />
-            <TextView
-                android:id="@+id/CO2_est_text"
-                android:layout_marginTop="8dp"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@color/black"
-                android:background="@drawable/boarder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="CO2 Estimate past 7 days"/>
+        app:layout_constraintBottom_toTopOf="@id/add_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/daily_tip">
+
+        <TextView
+            android:id="@+id/tv_CO2_est_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/boarder_colorless"
+            android:gravity="center_horizontal"
+            android:textColor="@color/black"
+            android:textSize="20pt" />
+
+        <TextView
+            android:id="@+id/CO2_est_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/boarder"
+            android:text="CO2 Estimate past 7 days"
+            android:textColor="@color/black" />
 
 
-            <TextView
-                android:id="@+id/tv_change_percent"
-                android:layout_marginTop="32dp"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/boarder_colorless"
-                android:textSize="30pt"
-                app:layout_constraintTop_toBottomOf="@+id/daily_tip"
-                tools:layout_editor_absoluteX="294dp" />
+        <TextView
+            android:id="@+id/tv_change_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/boarder_colorless"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="30pt"
+            app:layout_constraintTop_toBottomOf="@+id/daily_tip"
+            tools:layout_editor_absoluteX="294dp" />
 
-            <TextView
-                android:id="@+id/tv_username"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/boarder"
-                android:textColor="@color/black"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="change to last week" />
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/boarder"
+            android:text="change to last week"
+            android:textColor="@color/black" />
     </LinearLayout>
-
-
-
 
     <Button
         android:id="@+id/add_btn"
@@ -81,7 +85,7 @@
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="32dp"
         android:text="Add"
-        android:background="@drawable/boarder"
+        android:background="@drawable/boarder_colorless"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

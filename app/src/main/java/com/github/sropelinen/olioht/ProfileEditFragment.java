@@ -104,10 +104,15 @@ public class ProfileEditFragment extends Fragment {
 
         btnSave.setOnClickListener(v -> {
             boolean changed = false;
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 4; i++) {
                 if (!newValues[i].equals(oldValues[i])) {
                     updatedValues.put(keys[i], newValues[i]);
                     oldValues[i] = newValues[i];
+                    changed = true;
+                }
+                if (newValues[4] != null) {
+                    updatedValues.put(keys[4], newValues[4]);
+                    oldValues[4] = newValues[4];
                     changed = true;
                 }
             }
