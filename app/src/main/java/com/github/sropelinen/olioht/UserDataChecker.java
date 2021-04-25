@@ -2,6 +2,8 @@ package com.github.sropelinen.olioht;
 
 public class UserDataChecker {
 
+    /* All methods below validates different String variable, returns message if test failed */
+
     public String validateUserName(String userName) {
         if (userName.isEmpty()) {
             return "Add username!";

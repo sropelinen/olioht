@@ -31,14 +31,18 @@ public class EstimateParser {
         return INSTANCE;
     }
 
+    /* This method calculates estimated emission of public transport */
     public void getTransportEstimate(int carDistance, int busDistance, int trainDistance, Callback callback) {
         Handler handler = new Handler();
         new Thread(() -> {
             String carJson = getCarJson(carDistance);
             if (carJson != null) {
+                /* API:s input is km/yr */
                 callback.carEstimate = Double.parseDouble(carJson) / 365;
             }
             Object[] distances = new Object[] {0, 0, 0, 0};
+            /* API:s input for long train and bus distances are km/yr
+            *  but for short distances it's km/wk */
             if (busDistance > 15) distances[0] = busDistance * 365;
             else distances[2] = busDistance * 7;
             if (trainDistance > 15) distances[1] = trainDistance * 365;
@@ -57,7 +61,7 @@ public class EstimateParser {
         }).start();
     }
 
-
+    /* this method returns .json of public transport emission */
     public String getPublicJson(Object[] distances) {
         String response = null;
         try {
@@ -83,6 +87,7 @@ public class EstimateParser {
         return response;
     }
 
+    /* this method returns .json of car emission */
     public String getCarJson(int distance) {
         String response = null;
         try {

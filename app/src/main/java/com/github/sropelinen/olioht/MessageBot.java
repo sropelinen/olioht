@@ -19,6 +19,7 @@ public class MessageBot{
         return INSTANCE;
     }
 
+    /* this method reads messages from .txt file*/
     public void readMessages(Context context) {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -32,9 +33,11 @@ public class MessageBot{
             }
             br.close();
         } catch (IOException e) {
-            Log.e("IOException", "Virhe syötteessä");
+            Log.e("IOException", "IOException");
         }
     }
+
+    /* this method returns message by random */
     public String sendMessage(int changeInWeek) {
         int num = (int) (Math.random() * 2 - 0.00001) ;
         if (num == 1) {
