@@ -22,9 +22,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class ProfileEditFragment extends Fragment {
-    private View view;
     private ImageView imageView, imageView2, imageView3;
-    private TextView tvName, tvDob, tvUsername;
     private final EditText[] textFields = new EditText[5];
     private final Object[] newValues = new Object[5];
     private final Object[] oldValues = new Object[5];
@@ -37,7 +35,7 @@ public class ProfileEditFragment extends Fragment {
     };
 
     private Button btnSave, btnGoBack, btnAddPic;
-    private Profile profile;
+    private final Profile profile;
     private HashMap<String, Object> updatedValues = new HashMap<>();
 
 
@@ -53,7 +51,7 @@ public class ProfileEditFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_profile_edit, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile_edit, container, false);
 
         for (int i = 0; i < 5; i++) {
             textFields[i] = view.findViewById(ids[i]);
@@ -63,9 +61,9 @@ public class ProfileEditFragment extends Fragment {
         btnSave = view.findViewById(R.id.btn_save_profile);
         btnGoBack = view.findViewById(R.id.btn_back_to_settings);
         btnAddPic = view.findViewById(R.id.btn_add_pic);
-        tvName = view.findViewById(R.id.tv_name);
-        tvDob = view.findViewById(R.id.tv_dob);
-        tvUsername = view.findViewById(R.id.tv_username);
+        TextView tvName = view.findViewById(R.id.tv_name);
+        TextView tvDob = view.findViewById(R.id.tv_dob);
+        TextView tvUsername = view.findViewById(R.id.tv_username);
         imageView = view.findViewById(R.id.iv_profile_pic);
         imageView2 = view.findViewById(R.id.iv_profile_pic_2);
         imageView3 = view.findViewById(R.id.iv_profile_pic_settings);
@@ -120,7 +118,7 @@ public class ProfileEditFragment extends Fragment {
             }
         });
 
-        // set profile pic NOT WORKING
+        // set profile pic NOT WORKING (doesn't save)
         btnAddPic.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             intent.putExtra("crop", "true");
@@ -133,7 +131,6 @@ public class ProfileEditFragment extends Fragment {
             startActivityForResult(intent, 1);
         });
 
-        // return
         btnGoBack.setOnClickListener(v -> ((MainActivity)
                 Objects.requireNonNull(getActivity())).setSettingsFragment());
     }
@@ -147,7 +144,7 @@ public class ProfileEditFragment extends Fragment {
         }
     }
 
-    // set profile pic NOT WORKING
+    // set profile pic NOT WORKING (doesn't save)
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

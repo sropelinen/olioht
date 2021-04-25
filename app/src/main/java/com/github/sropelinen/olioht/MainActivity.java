@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private Fragment settingsFragment = null;
     private Fragment chartsFragment = null;
     private Fragment profileEditFragment = null;
-    private Fragment addTravelFragment = null;
     private ActionBar actionBar;
     private Profile profile;
 
@@ -50,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         settingsFragment = new SettingsFragment(profile);
         chartsFragment = new ChartsFragment(profile);
         profileEditFragment = new ProfileEditFragment(profile);
-        addTravelFragment = new AddTravelFragment(profile);
 
         // set profile values to side menu
         TextView tvUsername = header.findViewById(R.id.tv_nav_username);
@@ -111,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setTitle("Home");
     }
 
+    /* this method sets fragment based on choices in side drawer*/
     private void setFragment() {
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();

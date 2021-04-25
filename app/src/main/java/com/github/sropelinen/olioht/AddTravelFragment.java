@@ -17,16 +17,15 @@ import android.widget.EditText;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Objects;
 
 public class AddTravelFragment extends Fragment {
-    private View view;
-    private EditText etValueInput, etWeightInput;
-    private CalendarView calendarView;
+    private EditText etValueInput;
     private Calendar calendar;
-    private Profile profile;
+    private final Profile profile;
     private final Button[] toggles = new Button[5];
-    private String[] keys = new String[] { "walk", "bike", "train", "bus", "car"};
+    private final String[] keys = new String[] { "walk", "bike", "train", "bus", "car"};
     private final int[] ids = new int[] {
             R.id.btn_walk, R.id.btn_bike, R.id.btn_train, R.id.btn_bus, R.id.btn_car
     };
@@ -43,14 +42,14 @@ public class AddTravelFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_add_travel, container, false);
-        etValueInput = view.findViewById(R.id.et_value_input);
-        etWeightInput = view.findViewById(R.id.et_update_weight);
-        calendarView = view.findViewById(R.id.calendar_view);
-        Button btnSubmit = view.findViewById(R.id.btn_submit);
+        View view1 = inflater.inflate(R.layout.fragment_add_travel, container, false);
+        etValueInput = view1.findViewById(R.id.et_value_input);
+        EditText etWeightInput = view1.findViewById(R.id.et_update_weight);
+        CalendarView calendarView = view1.findViewById(R.id.calendar_view);
+        Button btnSubmit = view1.findViewById(R.id.btn_submit);
 
         for (int i = 0; i < ids.length; i++) {
-            toggles[i] = view.findViewById(ids[i]);
+            toggles[i] = view1.findViewById(ids[i]);
         }
 
         // set calendar to current date
@@ -92,9 +91,10 @@ public class AddTravelFragment extends Fragment {
         modeSelected();
         btnSubmit.setOnClickListener(v -> save());
 
-        return view;
+        return view1;
     }
 
+    /* this method saves values in km list to profile and exits fragment*/
     private void save() {
         if (isPressed && isEntered) {
             kmList[btnIndex] = km;
@@ -120,6 +120,7 @@ public class AddTravelFragment extends Fragment {
         }
     }
 
+    /*this method determines which of the five vehicle buttons is chosen and saves kilometres to a km list*/
     private void modeSelected() {
         for (int i = 0; i < ids.length; i++) {
             int finalI = i;
@@ -130,7 +131,8 @@ public class AddTravelFragment extends Fragment {
                 if (kmList[finalI] == 0) {
                     etValueInput.getText().clear();
                 } else {
-                    etValueInput.setText(""+kmList[finalI]);
+                    etValueInput.setText(String.format(Locale.ENGLISH,"%d", kmList[finalI]));
+
                 }
                 btnIndex = finalI;
 

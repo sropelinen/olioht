@@ -2,18 +2,10 @@ package com.github.sropelinen.olioht;
 
 import androidx.lifecycle.ViewModel;
 
+/* this class exists for providing settings (if there was any) to all fragments */
 public class SettingsViewModel extends ViewModel {
-    private boolean darkMode;
 
     public SettingsViewModel() {
-        darkMode = false;
-    }
 
-    public void setDarkMode(boolean darkMode) {
-        this.darkMode = darkMode;
-    }
-
-    public boolean isDarkMode() {
-        return darkMode;
     }
 }

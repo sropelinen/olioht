@@ -16,12 +16,9 @@ import android.widget.TextView;
 import java.util.Objects;
 
 public class SettingsFragment extends Fragment {
-    private View view;
     private TextView showLog;
-    private TextView tvUsername;
     private final Profile profile;
     private SettingsViewModel viewModel;
-    private TextView tvEditProfile;
     private ScrollView scrollView;
 
     public SettingsFragment(Profile profile) {
@@ -31,7 +28,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_settings, container, false);
+        View view = inflater.inflate(R.layout.fragment_settings, container, false);
         viewModel = new ViewModelProvider(
                 Objects.requireNonNull(getActivity())).get(SettingsViewModel.class);
         scrollView = view.findViewById(R.id.scroll_view_log);
@@ -39,15 +36,16 @@ public class SettingsFragment extends Fragment {
         showLog = view.findViewById(R.id.showLog);
         showLog.setOnClickListener(v -> toggleLog());
 
-        tvUsername = view.findViewById(R.id.tv_name);
+        TextView tvUsername = view.findViewById(R.id.tv_name);
         tvUsername.setText(profile.getValue("userName").toString());
 
-        tvEditProfile = view.findViewById(R.id.tv_edit_profile);
+        TextView tvEditProfile = view.findViewById(R.id.tv_edit_profile);
         tvEditProfile.setOnClickListener(v -> ((MainActivity) getActivity()).setProfileEditFragment());
 
         return view;
     }
 
+    /* this method shows log in text format*/
     private void toggleLog() {
         if (showLog.getText().toString().equals("View log")) {
             showLog.setText(profile.getLog());

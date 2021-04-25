@@ -91,6 +91,7 @@ public class ChartsFragment extends Fragment {
         }
     }
 
+    /* this method determines timeline shown in charts*/
     private int getDays() {
         int position = spinner.getSelectedItemPosition();
         int days = 7;

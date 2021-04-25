@@ -16,9 +16,7 @@ import java.util.Objects;
 
 
 public class HomeFragment extends Fragment {
-    private View view;
-    private Button addBtn;
-    private Profile profile;
+    private final Profile profile;
     private TextView message, tvCO2, tvChange;
 
     public HomeFragment(Profile profile) {
@@ -33,8 +31,8 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_home, container, false);
-        addBtn = view.findViewById(R.id.add_btn);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        Button addBtn = view.findViewById(R.id.add_btn);
 
         addBtn.setOnClickListener(v -> ((MainActivity)
                 Objects.requireNonNull(getActivity())).setAddTravelFragment());
@@ -62,7 +60,7 @@ public class HomeFragment extends Fragment {
                         }
                         else {
                             int CO2Change = (int) ((CO2Estimate[0] / (double) returnValue - 1) * 100);
-                            tvChange.setText(String.format(Locale.ENGLISH, "%d", CO2Change) + "%");
+                            tvChange.setText(String.format(Locale.ENGLISH, "%d %%", CO2Change));
                             message.setText(String.format(bot.sendMessage(CO2Change),
                                     profile.getValue("firstName")));
                         }

@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
                 registerFragment).commit();
     }
 
+    /* this method checks if user is valid to login and then logs in */
     public void login(View view) {
         String username = loginFragment.getName();
         String password = loginFragment.getPassword();
@@ -48,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /* this method checks if registration is valid and then registers new user to database */
     public void register(View view) {
         UserDataChecker checker = new UserDataChecker();
         String message;

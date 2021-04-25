@@ -17,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.Objects;
+
 public class LoginFragment extends Fragment {
 
     private EditText editUsername, editPassword;
@@ -24,9 +26,9 @@ public class LoginFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
-        return view;
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
     @Override
@@ -41,9 +43,10 @@ public class LoginFragment extends Fragment {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 ((LoginActivity) view.getContext()).login(view);
                 // closes keyboard
-                InputMethodManager methodManager = (InputMethodManager)
-                        getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                methodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
+                InputMethodManager methodManager = (InputMethodManager) Objects.
+                        requireNonNull(getContext()).getSystemService(Context.INPUT_METHOD_SERVICE);
+                methodManager.hideSoftInputFromWindow(Objects.requireNonNull(getActivity()).
+                                getCurrentFocus().getWindowToken(),
                         InputMethodManager.HIDE_NOT_ALWAYS);
             }
             return false;
