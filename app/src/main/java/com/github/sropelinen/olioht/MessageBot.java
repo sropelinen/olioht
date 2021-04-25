@@ -32,7 +32,7 @@ public class MessageBot{
             }
             br.close();
         } catch (IOException e) {
-            Log.e("IOException", "Virhe syötteessä");
+            Log.e("IOException", "Input Error");
         }
     }
     public String sendMessage(int changeInWeek) {

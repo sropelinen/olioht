@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment {
                     public void run() {
                         if ((double) returnValue == 0 || CO2Estimate[0] == 0) {
                             tvChange.setText("No data");
-                            message.setText("I wish I had some data to calculate... add by clicking ADD");
+                            message.setText("I wish I had data to calculate... Add some by clicking ADD!");
                         }
                         else {
                             int CO2Change = (int) ((CO2Estimate[0] / (double) returnValue - 1) * 100);
